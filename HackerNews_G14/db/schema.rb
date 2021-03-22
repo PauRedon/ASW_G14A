@@ -10,27 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_21_173302) do
+ActiveRecord::Schema.define(version: 2021_03_22_180200) do
 
   create_table "contribucios", force: :cascade do |t|
-    t.string "tittle"
+    t.string "title"
     t.string "url"
     t.text "content"
-    t.integer "likes"
-    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "news", force: :cascade do |t|
-    t.string "tittle"
-    t.string "url"
-    t.text "content"
-    t.date "data_creacio"
-    t.integer "likes"
-    t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.integer "likes", default: 0
+    t.integer "userid"
   end
 
   create_table "users", force: :cascade do |t|

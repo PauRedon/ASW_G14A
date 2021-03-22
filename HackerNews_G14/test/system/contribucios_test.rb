@@ -15,10 +15,8 @@ class ContribuciosTest < ApplicationSystemTestCase
     click_on "New Contribucio"
 
     fill_in "Content", with: @contribucio.content
-    fill_in "Likes", with: @contribucio.likes
-    fill_in "Tittle", with: @contribucio.tittle
+    fill_in "Title", with: @contribucio.title
     fill_in "Url", with: @contribucio.url
-    fill_in "User", with: @contribucio.user_id
     click_on "Create Contribucio"
 
     assert_text "Contribucio was successfully created"
@@ -30,10 +28,8 @@ class ContribuciosTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Content", with: @contribucio.content
-    fill_in "Likes", with: @contribucio.likes
-    fill_in "Tittle", with: @contribucio.tittle
+    fill_in "Title", with: @contribucio.title
     fill_in "Url", with: @contribucio.url
-    fill_in "User", with: @contribucio.user_id
     click_on "Update Contribucio"
 
     assert_text "Contribucio was successfully updated"

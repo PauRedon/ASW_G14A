@@ -1,5 +1,5 @@
 class ContribuciosController < ApplicationController
-  before_action :set_contribucio, only: [:show, :edit, :update, :destroy]
+  before_action :set_contribucio, only: [:show, :edit, :update, :destroy, :like]
 
   # GET /contribucios
   # GET /contribucios.json
@@ -60,6 +60,15 @@ class ContribuciosController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def like
+      @contribucio.likes = @contribucio.likes + 1
+      @contribucio.save
+      respond_to do |format|
+        format.html { redirect_to contribucios_url, notice: 'Contribucio was successfully liked.' }
+        format.json { head :no_content }
+      end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +78,6 @@ class ContribuciosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def contribucio_params
-      params.require(:contribucio).permit(:tittle, :url, :content)
+      params.require(:contribucio).permit(:title, :url, :content)
     end
 end
