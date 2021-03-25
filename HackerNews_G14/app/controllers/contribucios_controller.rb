@@ -1,16 +1,17 @@
 class ContribuciosController < ApplicationController
-  before_action :set_contribucio, only: [:show, :edit, :update, :destroy, :like]
+  before_action :set_contribucio, only: [:show, :edit, :update, :destroy, :like, :ordenar]
 
   # GET /contribucios
   # GET /contribucios.json
   def index
-    @contribucios = Contribucio.all
+    @contribucios = Contribucio.all.order(likes: :desc)
   end
 
   # GET /contribucios/1
   # GET /contribucios/1.json
   def show
   end
+  
 
   # GET /contribucios/new
   def new
@@ -68,6 +69,10 @@ class ContribuciosController < ApplicationController
         format.html { redirect_to contribucios_url, notice: 'Contribucio was successfully liked.' }
         format.json { head :no_content }
       end
+  end
+  
+  def ordenar
+    @contribucios = Contribucio.all.order(created_at: :desc)
   end
 
   private

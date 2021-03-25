@@ -23,7 +23,8 @@
                 <td style="line-height:12pt; height:10px;">
                   <span class="pagetop">
                     <b class="hnname"><a href="news">Hacker News</a></b>
-                    <a <%= link_to 'New Contribucio', new_contribucio_path %></a>            
+                    <a <%= link_to 'New Contribucio', new_contribucio_path %></a> | 
+                    <a data-method="ordenar" <%= link_to 'Ordenar Contribucio', @contribucios, method: :get %></a>
                   </span></td><td style="text-align:right;padding-right:4px;">
                   <span class="pagetop"></span>
                 </td>
