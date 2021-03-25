@@ -16,7 +16,7 @@ class ContribuciosController < ApplicationController
   def new
     @contribucio = Contribucio.new
   end
-
+  
   # GET /contribucios/1/edit
   def edit
   end
