@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :contribucios do
+  resources :contribucions do
     member do
-      put 'like'
+      put 'darlike'
     end
     member do
       get 'ordenar'
@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   end
   resources :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  root 'contribucios#index'
+  root 'contribucions#index'
 end
