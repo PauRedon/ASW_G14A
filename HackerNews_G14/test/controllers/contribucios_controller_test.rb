@@ -17,7 +17,7 @@ class ContribuciosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create contribucio" do
     assert_difference('Contribucio.count') do
-      post contribucios_url, params: { contribucio: { content: @contribucio.content, title: @contribucio.title, url: @contribucio.url } }
+      post contribucios_url, params: { contribucio: { content: @contribucio.content, tittle: @contribucio.tittle, url: @contribucio.url } }
     end
 
     assert_redirected_to contribucio_url(Contribucio.last)
@@ -34,7 +34,7 @@ class ContribuciosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update contribucio" do
-    patch contribucio_url(@contribucio), params: { contribucio: { content: @contribucio.content, title: @contribucio.title, url: @contribucio.url } }
+    patch contribucio_url(@contribucio), params: { contribucio: { content: @contribucio.content, tittle: @contribucio.tittle, url: @contribucio.url } }
     assert_redirected_to contribucio_url(@contribucio)
   end
 

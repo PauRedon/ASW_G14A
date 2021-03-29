@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tittle:</strong>
+  <%= @contribucio.tittle %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @contribucio.url %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @contribucio.content %>
+</p>
+
+<%= link_to 'Edit', edit_contribucio_path(@contribucio) %> |
+<%= link_to 'Back', contribucios_path %>

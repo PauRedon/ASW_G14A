@@ -15,7 +15,7 @@ class ContribuciosTest < ApplicationSystemTestCase
     click_on "New Contribucio"
 
     fill_in "Content", with: @contribucio.content
-    fill_in "Title", with: @contribucio.title
+    fill_in "Tittle", with: @contribucio.tittle
     fill_in "Url", with: @contribucio.url
     click_on "Create Contribucio"
 
@@ -28,7 +28,7 @@ class ContribuciosTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Content", with: @contribucio.content
-    fill_in "Title", with: @contribucio.title
+    fill_in "Tittle", with: @contribucio.tittle
     fill_in "Url", with: @contribucio.url
     click_on "Update Contribucio"
 
