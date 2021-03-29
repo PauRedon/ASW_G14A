@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if @user.password = request.password
       format.html { redirect_to contribucios_url, notice: "User was successfully logged." }
     else
-      format.html { redirect_to new_user_path, notice: "Wrong password." }
+      format.html { redirect_to new_user_url, notice: "Wrong password." }
     end
   end
   # GET /users/1/edit
