@@ -43,40 +43,41 @@ class ContribuciosController < ApplicationController
   end
 
   # PATCH/PUT /contribucios/1 or /contribucios/1.json
-  def update
-    respond_to do |format|
-      if @contribucio.update(contribucio_params)
-        format.html { redirect_to @contribucio, notice: "Contribucio was successfully updated." }
-        format.json { render :show, status: :ok, location: @contribucio }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @contribucio.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #def update
+  #  respond_to do |format|
+  #    if @contribucio.update(contribucio_params)
+  #      format.html { redirect_to @contribucio, notice: "Contribucio was successfully updated." }
+  #      format.json { render :show, status: :ok, location: @contribucio }
+  #    else
+  #      format.html { render :edit, status: :unprocessable_entity }
+  #      format.json { render json: @contribucio.errors, status: :unprocessable_entity }
+  #    end
+  #  end
+  #end
 
   # DELETE /contribucios/1 or /contribucios/1.json
-  def destroy
-    @contribucio.destroy
-    respond_to do |format|
-      format.html { redirect_to contribucios_url, notice: "Contribucio was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  #def destroy
+  #  @contribucio.destroy
+  #  respond_to do |format|
+  #    format.html { redirect_to contribucios_url, notice: "Contribucio was successfully destroyed." }
+  #    format.json { head :no_content }
+  #  end
+  #end
   
   def like
       @contribucio.like = @contribucio.like + 1 
       @contribucio.save
-      respond_to do |format|
-        format.html { redirect_to contribucios_url, notice: 'Contribucio was successfully liked.' }
-        format.json { head :no_content }
-      end
+      redirect_back(fallback_location: contribucios_url)
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contribucio
-      @contribucio = Contribucio.find(params[:id])
+      begin 
+        @contribucio = Contribucio.find(params[:id])
+      rescue
+        @contribucio = nil
+      end
     end
 
     # Only allow a list of trusted parameters through.
