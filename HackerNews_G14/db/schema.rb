@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2021_03_29_155126) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "likes"
     t.integer "like", default: 0
   end
 
