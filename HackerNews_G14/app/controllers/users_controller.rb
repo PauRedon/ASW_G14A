@@ -21,8 +21,10 @@ class UsersController < ApplicationController
     @user = User.find(params[username])
     if @user.password = request.password
       format.html { redirect_to contribucios_url, notice: "User was successfully logged." }
+      format.json { render :show, status: :created, location: @user }
     else
       format.html { redirect_to new_user_url, notice: "Wrong password." }
+      format.json { render json: @user.errors, status: :unprocessable_entity }
     end
   end
   # GET /users/1/edit

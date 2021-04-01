@@ -1,15 +1,17 @@
-<%= form_with(model: user, url: users_path, action: "login") do |form| %>
-  <div class="field">
-    <%= form.label :username %>
-    <%= form.text_field :username %>
+<%= form_with(model: user, url: users_path, action: "login") do |f| %>
+
+   <div class="field">
+    <%= f.label :username %>
+    <%= f.text_field :username %>
   </div>
 
   <div class="field">
-    <%= form.label :password %>
-    <%= form.text_field :password %>
+    <%= f.label :password %>
+    <%= f.text_field :password %>
   </div>
 
   <div class="actions" type>
-    <%= form.submit "Log In" %>
+    <%= f.submit "Log In" %>
   </div>
+  
 <% end %>

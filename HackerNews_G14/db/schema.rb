@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_29_155126) do
+ActiveRecord::Schema.define(version: 2021_04_01_101645) do
 
   create_table "contribucios", force: :cascade do |t|
     t.string "tittle"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_155126) do
     t.string "password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
 end
