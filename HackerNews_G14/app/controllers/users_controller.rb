@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update destroy login ]
 
   # GET /users or /users.json
   def index
@@ -15,16 +15,20 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+
   # GET /users/username?&&password?
   def login
-    username = request.username
-    @user = User.find(params[username])
-    if @user.password = request.password
-      format.html { redirect_to contribucios_url, notice: "User was successfully logged." }
-      format.json { render :show, status: :created, location: @user }
+    user = User.find_by(username: params[:username])
+    if user.password = params[:password]
+      respond_to do |format|
+        format.html { redirect_to contribucios_url, notice: "User was successfully logged." }
+        format.json { render :show, status: :created, location: @user }
+      end
     else
-      format.html { redirect_to new_user_url, notice: "Wrong password." }
-      format.json { render json: @user.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        format.html { redirect_to contribucios_url, notice: "Something went wrong." }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
   # GET /users/1/edit
@@ -71,7 +75,11 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      begin
+        @user = User.find(params[:id])
+      rescue
+        @user = nil
+      end
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,5 +1,5 @@
                                   Prefix Verb   URI Pattern                                                                                       Controller#Action
-                              login_user POST   /users/:id/login(.:format)                                                                        users#login
+                             login_users POST   /users/login(.:format)                                                                            users#login
                                    users GET    /users(.:format)                                                                                  users#index
                                          POST   /users(.:format)                                                                                  users#create
                                 new_user GET    /users/new(.:format)                                                                              users#new
@@ -9,6 +9,7 @@
                                          PUT    /users/:id(.:format)                                                                              users#update
                                          DELETE /users/:id(.:format)                                                                              users#destroy
                         like_contribucio PUT    /contribucios/:id/like(.:format)                                                                  contribucios#like
+                       news_contribucios GET    /contribucios/news(.:format)                                                                      contribucios#news
                             contribucios GET    /contribucios(.:format)                                                                           contribucios#index
                                          POST   /contribucios(.:format)                                                                           contribucios#create
                          new_contribucio GET    /contribucios/new(.:format)                                                                       contribucios#new
