@@ -1,20 +1,24 @@
-# ASW_G14A
-```
-Pau Redon
-Alejandro Santandreu
-Joel Crespo
-Antonio Barrantes
-```
+# README
 
-#To execute:
-```
-echo "gem: --no-document" >> ~/.gemrc
-gem install rails -v 6.1.3
-source <(curl -sL https://cdn.learnenough.com/yarn_install)
-gem install bundler -v 2.2.13
-cd HackerNews_G14
-bundle config set --local without 'production'
-bundle install
-yarn install --check-files
-rails server
-```
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
