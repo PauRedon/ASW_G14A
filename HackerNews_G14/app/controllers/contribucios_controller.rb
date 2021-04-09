@@ -3,7 +3,7 @@ class ContribuciosController < ApplicationController
 
   # GET /contribucios or /contribucios.json
   def index
-    @contribucios = Contribucio.all.order(like: :desc)
+    @contribucios = Contribucio.where(tipus: 'url').order(like: :desc)
   end
 
 
@@ -30,7 +30,11 @@ class ContribuciosController < ApplicationController
   # POST /contribucios or /contribucios.json
   def create
     @contribucio = Contribucio.new(contribucio_params)
-
+    if(url_valid?(@contribucio.url))
+      @contribucio.tipus = 'url'
+    else
+      @contribucio.tipus = 'ask'
+    end
     respond_to do |format|
       if @contribucio.save
         format.html { redirect_to @contribucio, notice: "Contribucio was successfully created." }
@@ -84,4 +88,11 @@ class ContribuciosController < ApplicationController
     def contribucio_params
       params.require(:contribucio).permit(:tittle, :url, :content)
     end
+    
+    # a URL may be technically well-formed but may 
+    # not actually be valid, so this checks for both.
+    def url_valid?(url)
+      url = URI.parse(url) rescue false
+      url.kind_of?(URI::HTTP) || url.kind_of?(URI::HTTPS)
+    end 
 end
