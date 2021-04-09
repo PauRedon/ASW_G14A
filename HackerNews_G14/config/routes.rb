@@ -13,8 +13,12 @@ Rails.application.routes.draw do
    collection do
        get 'news'
     end
+    collection do
+       get 'asks'
+    end
   end
   match '/news' => 'contribucios#news', :via => :get, :as => 'news'
+  match '/asks' => 'contribucios#asks', :via => :get, :as => 'asks'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'contribucios#index'
 end

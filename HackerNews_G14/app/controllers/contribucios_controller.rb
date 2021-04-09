@@ -16,7 +16,9 @@ class ContribuciosController < ApplicationController
   def show
   end
 
-
+  def asks
+    @contribucios = Contribucio.where(tipus: 'ask').order(like: :desc)
+  end
 
   # GET /contribucios/new
   def new
@@ -86,7 +88,7 @@ class ContribuciosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def contribucio_params
-      params.require(:contribucio).permit(:tittle, :url, :content)
+      params.require(:contribucio).permit(:tittle, :url)
     end
     
     # a URL may be technically well-formed but may 
