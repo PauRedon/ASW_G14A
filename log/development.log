@@ -765,3 +765,446 @@ puma (5.2.2) lib/puma/thread_pool.rb:337:in `with_force_shutdown'
 puma (5.2.2) lib/puma/request.rb:75:in `handle_request'
 puma (5.2.2) lib/puma/server.rb:431:in `process_client'
 puma (5.2.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started GET "/" for 92.178.226.174 at 2021-04-20 20:54:43 +0000
+Cannot render console from 92.178.226.174! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ContribuciosController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering contribucios/index.html.erb within layouts/application
+  [1m[36mContribucio Load (0.7ms)[0m  [1m[34mSELECT "contribucios".* FROM "contribucios" WHERE "contribucios"."tipus" = ? ORDER BY "contribucios"."like" DESC[0m  [["tipus", "url"]]
+  ↳ app/views/contribucios/index.html.erb:42
+  Rendered contribucios/index.html.erb within layouts/application (Duration: 48.8ms | Allocations: 5991)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 83.8ms | Allocations: 9581)
+Completed 200 OK in 122ms (Views: 89.5ms | ActiveRecord: 1.1ms | Allocations: 14070)
+
+
+Started GET "/" for 92.178.226.174 at 2021-04-20 20:54:45 +0000
+Cannot render console from 92.178.226.174! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ContribuciosController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering contribucios/index.html.erb within layouts/application
+  [1m[36mContribucio Load (0.1ms)[0m  [1m[34mSELECT "contribucios".* FROM "contribucios" WHERE "contribucios"."tipus" = ? ORDER BY "contribucios"."like" DESC[0m  [["tipus", "url"]]
+  ↳ app/views/contribucios/index.html.erb:42
+  Rendered contribucios/index.html.erb within layouts/application (Duration: 11.4ms | Allocations: 1188)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 26.3ms | Allocations: 4285)
+Completed 200 OK in 32ms (Views: 31.0ms | ActiveRecord: 0.1ms | Allocations: 4733)
+
+
+Started GET "/news.css?z33GrLcCvmO5MywKrArP" for 92.178.226.174 at 2021-04-20 20:54:45 +0000
+Cannot render console from 92.178.226.174! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ContribuciosController#news as CSS
+  Parameters: {"z33GrLcCvmO5MywKrArP"=>nil}
+Completed 406 Not Acceptable in 6ms (ActiveRecord: 0.3ms | Allocations: 1939)
+
+
+  
+ActionController::UnknownFormat (ContribuciosController#news is missing a template for this request format and variant.
+
+request.formats: ["text/css"]
+request.variant: []):
+  
+actionpack (6.1.3) lib/action_controller/metal/implicit_render.rb:42:in `default_render'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `block in send_action'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `tap'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+actionpack (6.1.3) lib/abstract_controller/base.rb:228:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (6.1.3) lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+activesupport (6.1.3) lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+actiontext (6.1.3) lib/action_text/rendering.rb:20:in `with_renderer'
+actiontext (6.1.3) lib/action_text/engine.rb:55:in `block (4 levels) in <class:Engine>'
+activesupport (6.1.3) lib/active_support/callbacks.rb:126:in `instance_exec'
+activesupport (6.1.3) lib/active_support/callbacks.rb:126:in `block in run_callbacks'
+activesupport (6.1.3) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.3) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.3) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.3) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.3) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.3) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.3) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.3) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.3) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.3) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.3) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:842:in `call'
+omniauth (2.0.4) lib/omniauth/strategy.rb:202:in `call!'
+omniauth (2.0.4) lib/omniauth/strategy.rb:169:in `call'
+omniauth (2.0.4) lib/omniauth/builder.rb:45:in `call'
+rack (2.2.3) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+actionpack (6.1.3) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.3) lib/action_dispatch/http/content_security_policy.rb:18:in `call'
+rack (2.2.3) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.3) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.3) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/host_authorization.rb:92:in `call'
+webpacker (5.2.1) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.1.3) lib/rails/engine.rb:539:in `call'
+puma (5.2.2) lib/puma/configuration.rb:248:in `call'
+puma (5.2.2) lib/puma/request.rb:76:in `block in handle_request'
+puma (5.2.2) lib/puma/thread_pool.rb:337:in `with_force_shutdown'
+puma (5.2.2) lib/puma/request.rb:75:in `handle_request'
+puma (5.2.2) lib/puma/server.rb:431:in `process_client'
+puma (5.2.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started GET "/users/new" for 92.178.226.174 at 2021-04-20 20:54:48 +0000
+Cannot render console from 92.178.226.174! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_login.html.erb (Duration: 23.1ms | Allocations: 5180)
+  Rendered users/_form.html.erb (Duration: 2.8ms | Allocations: 1167)
+  Rendered users/new.html.erb within layouts/application (Duration: 29.6ms | Allocations: 7005)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 39.5ms | Allocations: 10219)
+Completed 200 OK in 55ms (Views: 42.8ms | ActiveRecord: 0.6ms | Allocations: 14982)
+
+
+Started GET "/news.css?z33GrLcCvmO5MywKrArP" for 92.178.226.174 at 2021-04-20 20:54:49 +0000
+Cannot render console from 92.178.226.174! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ContribuciosController#news as CSS
+  Parameters: {"z33GrLcCvmO5MywKrArP"=>nil}
+Completed 406 Not Acceptable in 1ms (ActiveRecord: 0.0ms | Allocations: 1080)
+
+
+  
+ActionController::UnknownFormat (ContribuciosController#news is missing a template for this request format and variant.
+
+request.formats: ["text/css"]
+request.variant: []):
+  
+actionpack (6.1.3) lib/action_controller/metal/implicit_render.rb:42:in `default_render'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `block in send_action'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `tap'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+actionpack (6.1.3) lib/abstract_controller/base.rb:228:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (6.1.3) lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+activesupport (6.1.3) lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+actiontext (6.1.3) lib/action_text/rendering.rb:20:in `with_renderer'
+actiontext (6.1.3) lib/action_text/engine.rb:55:in `block (4 levels) in <class:Engine>'
+activesupport (6.1.3) lib/active_support/callbacks.rb:126:in `instance_exec'
+activesupport (6.1.3) lib/active_support/callbacks.rb:126:in `block in run_callbacks'
+activesupport (6.1.3) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.3) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.3) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.3) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.3) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.3) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.3) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.3) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.3) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.3) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.3) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:842:in `call'
+omniauth (2.0.4) lib/omniauth/strategy.rb:202:in `call!'
+omniauth (2.0.4) lib/omniauth/strategy.rb:169:in `call'
+omniauth (2.0.4) lib/omniauth/builder.rb:45:in `call'
+rack (2.2.3) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+actionpack (6.1.3) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.3) lib/action_dispatch/http/content_security_policy.rb:18:in `call'
+rack (2.2.3) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.3) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.3) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/host_authorization.rb:92:in `call'
+webpacker (5.2.1) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.1.3) lib/rails/engine.rb:539:in `call'
+puma (5.2.2) lib/puma/configuration.rb:248:in `call'
+puma (5.2.2) lib/puma/request.rb:76:in `block in handle_request'
+puma (5.2.2) lib/puma/thread_pool.rb:337:in `with_force_shutdown'
+puma (5.2.2) lib/puma/request.rb:75:in `handle_request'
+puma (5.2.2) lib/puma/server.rb:431:in `process_client'
+puma (5.2.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started GET "/contribucios" for 92.178.226.174 at 2021-04-20 20:54:50 +0000
+Cannot render console from 92.178.226.174! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ContribuciosController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering contribucios/index.html.erb within layouts/application
+  [1m[36mContribucio Load (0.1ms)[0m  [1m[34mSELECT "contribucios".* FROM "contribucios" WHERE "contribucios"."tipus" = ? ORDER BY "contribucios"."like" DESC[0m  [["tipus", "url"]]
+  ↳ app/views/contribucios/index.html.erb:42
+  Rendered contribucios/index.html.erb within layouts/application (Duration: 5.1ms | Allocations: 1225)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 12.3ms | Allocations: 4311)
+Completed 200 OK in 17ms (Views: 16.3ms | ActiveRecord: 0.1ms | Allocations: 4846)
+
+
+Started GET "/news.css?z33GrLcCvmO5MywKrArP" for 92.178.226.174 at 2021-04-20 20:54:50 +0000
+Cannot render console from 92.178.226.174! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ContribuciosController#news as CSS
+  Parameters: {"z33GrLcCvmO5MywKrArP"=>nil}
+Completed 406 Not Acceptable in 1ms (ActiveRecord: 0.0ms | Allocations: 1045)
+
+
+  
+ActionController::UnknownFormat (ContribuciosController#news is missing a template for this request format and variant.
+
+request.formats: ["text/css"]
+request.variant: []):
+  
+actionpack (6.1.3) lib/action_controller/metal/implicit_render.rb:42:in `default_render'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `block in send_action'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `tap'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+actionpack (6.1.3) lib/abstract_controller/base.rb:228:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (6.1.3) lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+activesupport (6.1.3) lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+actiontext (6.1.3) lib/action_text/rendering.rb:20:in `with_renderer'
+actiontext (6.1.3) lib/action_text/engine.rb:55:in `block (4 levels) in <class:Engine>'
+activesupport (6.1.3) lib/active_support/callbacks.rb:126:in `instance_exec'
+activesupport (6.1.3) lib/active_support/callbacks.rb:126:in `block in run_callbacks'
+activesupport (6.1.3) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.3) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.3) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.3) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.3) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.3) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.3) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.3) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.3) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.3) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.3) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:842:in `call'
+omniauth (2.0.4) lib/omniauth/strategy.rb:202:in `call!'
+omniauth (2.0.4) lib/omniauth/strategy.rb:169:in `call'
+omniauth (2.0.4) lib/omniauth/builder.rb:45:in `call'
+rack (2.2.3) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+actionpack (6.1.3) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.3) lib/action_dispatch/http/content_security_policy.rb:18:in `call'
+rack (2.2.3) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.3) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.3) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/host_authorization.rb:92:in `call'
+webpacker (5.2.1) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.1.3) lib/rails/engine.rb:539:in `call'
+puma (5.2.2) lib/puma/configuration.rb:248:in `call'
+puma (5.2.2) lib/puma/request.rb:76:in `block in handle_request'
+puma (5.2.2) lib/puma/thread_pool.rb:337:in `with_force_shutdown'
+puma (5.2.2) lib/puma/request.rb:75:in `handle_request'
+puma (5.2.2) lib/puma/server.rb:431:in `process_client'
+puma (5.2.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started GET "/news" for 92.178.226.174 at 2021-04-20 20:54:52 +0000
+Cannot render console from 92.178.226.174! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ContribuciosController#news as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering contribucios/news.html.erb within layouts/application
+  [1m[36mContribucio Load (0.2ms)[0m  [1m[34mSELECT "contribucios".* FROM "contribucios" ORDER BY "contribucios"."created_at" DESC[0m
+  ↳ app/views/contribucios/news.html.erb:42
+  Rendered contribucios/news.html.erb within layouts/application (Duration: 6.2ms | Allocations: 1657)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 14.1ms | Allocations: 4684)
+Completed 200 OK in 18ms (Views: 16.5ms | ActiveRecord: 0.2ms | Allocations: 5649)
+
+
+Started GET "/news.css?z33GrLcCvmO5MywKrArP" for 92.178.226.174 at 2021-04-20 20:54:52 +0000
+Cannot render console from 92.178.226.174! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ContribuciosController#news as CSS
+  Parameters: {"z33GrLcCvmO5MywKrArP"=>nil}
+Completed 406 Not Acceptable in 1ms (ActiveRecord: 0.0ms | Allocations: 1042)
+
+
+  
+ActionController::UnknownFormat (ContribuciosController#news is missing a template for this request format and variant.
+
+request.formats: ["text/css"]
+request.variant: []):
+  
+actionpack (6.1.3) lib/action_controller/metal/implicit_render.rb:42:in `default_render'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `block in send_action'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `tap'
+actionpack (6.1.3) lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+actionpack (6.1.3) lib/abstract_controller/base.rb:228:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (6.1.3) lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+activesupport (6.1.3) lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+actiontext (6.1.3) lib/action_text/rendering.rb:20:in `with_renderer'
+actiontext (6.1.3) lib/action_text/engine.rb:55:in `block (4 levels) in <class:Engine>'
+activesupport (6.1.3) lib/active_support/callbacks.rb:126:in `instance_exec'
+activesupport (6.1.3) lib/active_support/callbacks.rb:126:in `block in run_callbacks'
+activesupport (6.1.3) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.3) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.3) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.3) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.3) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.3) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.3) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.3) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.3) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.3) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.3) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.3) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.3) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.3) lib/action_dispatch/routing/route_set.rb:842:in `call'
+omniauth (2.0.4) lib/omniauth/strategy.rb:202:in `call!'
+omniauth (2.0.4) lib/omniauth/strategy.rb:169:in `call'
+omniauth (2.0.4) lib/omniauth/builder.rb:45:in `call'
+rack (2.2.3) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+actionpack (6.1.3) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.3) lib/action_dispatch/http/content_security_policy.rb:18:in `call'
+rack (2.2.3) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.3) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.3) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3) lib/action_dispatch/middleware/host_authorization.rb:92:in `call'
+webpacker (5.2.1) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.1.3) lib/rails/engine.rb:539:in `call'
+puma (5.2.2) lib/puma/configuration.rb:248:in `call'
+puma (5.2.2) lib/puma/request.rb:76:in `block in handle_request'
+puma (5.2.2) lib/puma/thread_pool.rb:337:in `with_force_shutdown'
+puma (5.2.2) lib/puma/request.rb:75:in `handle_request'
+puma (5.2.2) lib/puma/server.rb:431:in `process_client'
+puma (5.2.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
