@@ -270,5 +270,4 @@ DEPENDENCIES
   webdrivers (= 4.6.0)
   webpacker (= 5.2.1)
 
-BUNDLED WITH
-   2.2.16
+
