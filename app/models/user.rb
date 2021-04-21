@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-    def self.form_omniauth(response)
+    def self.from_omniauth(response)
         User.find_or_create_by(uid: response[:uid], provider: response[:provider]) do |u|
-            u.username = response[:provider][:name]
-            u.password = response[:provider][:password]
+            u.username = response[:info][:name]
+            u.password = response[:info][:password]
         end 
     end
 end
