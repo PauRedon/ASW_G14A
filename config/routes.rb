@@ -19,7 +19,12 @@ Rails.application.routes.draw do
   end
   match '/news' => 'contribucios#news', :via => :get, :as => 'news'
   match '/asks' => 'contribucios#asks', :via => :get, :as => 'asks'
+  
+  resources :sessions, :only => [:new, :create, :destroy]
+  match '/logout', to: 'sessions#destroy', via: [:get, :post]
+  
   get '/auth/:provider/callback' => 'sessions#omniauth'
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'contribucios#index'
 end
