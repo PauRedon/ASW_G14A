@@ -11,6 +11,18 @@ class CommentsController < ApplicationController
   # GET /comments/1.json
   def show
   end
+  
+  def commenta
+    if !current_user.nil?
+      @user_id = current_user.id
+      @comment.comment = Comment.find(params[:id])
+      @comment.replies.add(@comment.create(content: params[:content], user_id: @user_id))
+      flash[:notice] = "Added your comment"
+      redirect_to :action => "show", :id => params[:id]
+    else
+      redirect_to '/login'
+    end
+  end
 
   # GET /comments/new
   def new

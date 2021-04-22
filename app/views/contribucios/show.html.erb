@@ -78,9 +78,10 @@
         <% @contribucio.comments.each do |comment| %>
           <tr>
             <% if comment.contribucio.id == @contribucio.id %>
-              <td><%= comment.user.username %></td> |
+              <td><a href="/users/<%=@contribucio.user.id%>" > <%=@contribucio.user.username%> </a></td> 
               <td><%= comment.created_at %> </td>
               <td><%= comment.content %></td>
+              <td><a href="/comments/<%=comment.id%>">Reply</a></td>
             <% end %>
           </tr>
         <% end %>

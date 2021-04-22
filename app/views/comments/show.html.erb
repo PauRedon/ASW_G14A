@@ -1,9 +1,73 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Content:</strong>
-  <%= @comment.content %>
-</p>
+<html lang="en" op="newest">
+  <head>
+    <meta name="referrer" content="origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="news.css?z33GrLcCvmO5MywKrArP">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>New Links | Hacker News</title>
+  </head>
+  <body>
+    <center>
+      <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+        <tr>
+          <td bgcolor="#ff6600">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
+              <tr>
+                <td style="width:18px;padding-right:4px">
+                  <a href="https://news.ycombinator.com">
+                    <%= image_tag("hacker-news.png", width:"18", height:"18", style: "border:1px white solid") %>
+                  </a>
+                </td>
+                <td style="line-height:12pt; height:10px;">
+                  <span class="pagetop">
+                    <b class="hnname">Hacker News</b>
+                    <a <%= link_to 'New Contribucio', new_contribucio_path %></a> |
+                    <a <%= link_to "Index", contribucios_url %> </a> |
+                    <a <%= link_to "News", news_path %> </a> |
+                    <a <%= link_to "Asks", asks_path %> </a> |
+                    
+                    <% if current_user %>
+                      <a href="/users/<%=current_user.id%>" > <%= current_user.username %> (<%= current_user.id %>) </a> |
+                      <a style="text-align:right" <%= link_to "Log Out", logout_url %> </a>
+                    <% else %>
+                      <a style="text-align:right" <%= link_to "Register/Log In", new_user_path %> </a> |
+                    <% end %>
+                  </span></td><td style="text-align:right;padding-right:4px;">
+                  <span class="pagetop"></span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </center>
+  </body>
 
-<%= link_to 'Edit', edit_comment_path(@comment) %> |
-<%= link_to 'Back', comments_path %>
+
+    <p>
+      <strong>Content:</strong>
+      <%= @comment.content %>
+    </p>
+
+    <%= form_tag :action => "commenta", :id => @comment %>
+    <textarea name="content" id="comment_content" rows="6" cols="60"></textarea></br>
+    <%= submit_tag "add a comment" %>
+    </form>
+    
+    <p>
+      <strong>Comments:</strong>
+    </p>
+    <table>
+      <tbody>
+        <% @comment.replies.each do |reply| %>
+          <tr>
+            <td><a href="/users/<%=@comment.user.id%>" > <%=@comment.user.username%> </a></td> 
+            <td><%= comment.created_at %> </td>
+            <td><%= comment.content %></td>
+            <td><a href="/comments/<%=comment.id%>">Reply</a></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>

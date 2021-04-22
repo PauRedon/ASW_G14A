@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
-  resources :comments
+  resources :comments do
+    member do
+      post 'commenta'
+    end
+  end
   resources :users do
     collection do
       post 'login'
     end
   end
   
-
+  
   resources :contribucios do
     member do
       put 'like'
