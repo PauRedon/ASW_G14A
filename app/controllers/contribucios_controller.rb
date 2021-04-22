@@ -50,6 +50,12 @@ class ContribuciosController < ApplicationController
     end
   end
   
+  def users
+    id = params[:id]
+    user = User.find(id)
+    @contribucios = user.contribucios
+  end
+  
 
   # PATCH/PUT /contribucios/1 or /contribucios/1.json
   #def update

@@ -16,7 +16,7 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
               <tr>
                 <td style="width:18px;padding-right:4px">
-                  <a href="https://news.ycombinator.com">
+                  <a href="https://hacker-news-g14a.herokuapp.com">
                     <%= image_tag("hacker-news.png", width:"18", height:"18", style: "border:1px white solid") %>
                   </a>
                 </td>
@@ -41,28 +41,33 @@
             </table>
           </td>
         </tr>
-      </table>
-    </center>
-  </body>
-    <p>
-      <strong>Username:</strong>
-      <%= @user.username %>
-    </p>
-    
-    <p>
-      <strong>Created at:</strong>
-      <%= @user.created_at %>
-    </p>
-    
-    <p>
-      <strong>Karma:</strong>
-      <%= @user.id %>
-    </p>
-    
-    <p>
-      <strong><a href="/contribucios/users?id=<%=@user.id %>" > Contribucions</a></strong>
-    </p>
-    
-    <p>
-      <strong><a href="/comments/users?id=<%=@user.id %>" > Comments</a></strong>
-    </p>
+        <table align="left" width="80%" border="0" cellpadding="0" cellspacing="0" class="itemlist">
+          <tbody>
+            <% @contador = 1 %>
+            <% @contribucios.each do |contribucio|  %>
+                <tr>
+                  <td align="right" valign="top" class="title">
+                    <span class="rank"><%= @contador %>.</span>
+                  </td>
+                  <td valign="top" class="votelinks">
+                  </td>
+                  <td class="title">
+                    <a href=<%= contribucio.url %> class="storylink"><%= contribucio.tittle%></a>
+                      <span class="sitebit comhead"> (<%= contribucio.url%>)
+                      </span>
+                  </td></tr>
+                <tr><td colspan="2"></td><td class="subtext">
+                  <span class="score"><%= contribucio.like %> Likes </span> by <a href=/users/<%=contribucio.user.id%> > <%= contribucio.user.username %> </a> |
+                  <span class="age"><%= contribucio.created_at %></span> | 
+                  <%= link_to image_tag("like-img.png", width: "12px", height: "12px", border: "0px", margin: "3px 2px 3px"), like_contribucio_path(contribucio), method: :put %>
+                  
+                  </td>
+                  <tr class="spacer" style="height:0px"></tr>
+                </tr>
+                <% @contador = @contador + 1 %>
+            <% end %> 
+          </tbody>
+        </table>
+      </center>
+    </body>
+<br>

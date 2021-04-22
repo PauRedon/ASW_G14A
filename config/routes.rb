@@ -17,9 +17,13 @@ Rails.application.routes.draw do
     collection do
        get 'asks'
     end
+    collection do
+      get 'users'
+    end
   end
   match '/news' => 'contribucios#news', :via => :get, :as => 'news'
   match '/asks' => 'contribucios#asks', :via => :get, :as => 'asks'
+  get '/contribucios/users', to: 'contribucios#id'
   
   resources :sessions, :only => [:new, :create, :destroy]
   match '/logout', to: 'sessions#destroy', via: [:get, :post]

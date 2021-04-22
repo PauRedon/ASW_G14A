@@ -6,4 +6,5 @@ class User < ApplicationRecord
         end 
     end
     has_many :contribucios
+    has_many :comments
 end
