@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :votes
   resources :comments do
     member do
       post 'reply_comment'
@@ -9,11 +10,11 @@ Rails.application.routes.draw do
       post 'login'
     end
   end
-  
-  
+
   resources :contribucios do
     member do
-      put 'like'
+      put 'like', to: 'contribucios#like'
+      put 'dislike', to: 'contribucios#unlike'
     end
    collection do
        get 'news'

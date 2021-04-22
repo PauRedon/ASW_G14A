@@ -92,9 +92,20 @@ class ContribuciosController < ApplicationController
   #end
   
   def like
-      @contribucio.like = @contribucio.like + 1 
-      @contribucio.save
+    if !current_user.nil?
+      @contribucio = Contribucio.find(params[:id]) 
+      Vote.create(user_id: current_user.id, contribucio_id: params[:id])
       redirect_back(fallback_location: contribucios_url)
+    end
+  end
+  
+  def unlike
+    if !current_user.nil?
+      @contribucio = Contribucio.find(params[:id]) 
+      @vote = Vote.where(user_id: current_user.id, contribucio_id: params[:id])
+      @contribucio.votes.destroy(@vote)
+      redirect_back(fallback_location: contribucios_url)
+    end
   end
 
   private

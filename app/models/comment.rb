@@ -1,7 +1,10 @@
 class Comment < ApplicationRecord
     belongs_to :contribucio
     belongs_to :user
-    #belongs_to :comment, class_name: "Comment"
-    #has_many :replies, class_name: "Comment"
+    belongs_to :parent, class_name: "Comment", optional: true
+    has_many :replies, class_name: "Comment", foreign_key: "parent_id"
     
+    def parent
+        self.parent
+    end
 end

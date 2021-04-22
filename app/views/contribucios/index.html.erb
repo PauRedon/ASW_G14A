@@ -58,9 +58,19 @@
                       </span>
                   </td></tr>
                 <tr><td colspan="2"></td><td class="subtext">
-                  <span class="score"><%= contribucio.like %> Likes </span> by <a href=/users/<%=contribucio.user.id%> > <%= contribucio.user.username %> </a> |
+                  <% @votes = contribucio.votes %>
+                  <% if current_user %>
+                    <% @voteif = contribucio.votes.where(user_id: current_user.id) %>
+                  <% end %>
+                  <span class="score"><%= @votes.size %> </span> by <a href=/users/<%=contribucio.user.id%> > <%= contribucio.user.username %> </a> |
                   <span class="age"><%= contribucio.created_at %></span> | 
-                  <%= link_to image_tag("like-img.png", width: "12px", height: "12px", border: "0px", margin: "3px 2px 3px"), like_contribucio_path(contribucio), method: :put %> |
+                  <% if current_user %>
+                    <% if @voteif.size == 0 %>
+                      <%= link_to image_tag("like-img.png", width: "12px", height: "12px", border: "0px", margin: "3px 2px 3px"), like_contribucio_path(contribucio), method: :put %> |
+                    <% else %>
+                      <%= link_to 'Unlike', dislike_contribucio_path(contribucio), method: :put %> |
+                    <% end %>
+                  <%end%>
                   <span class="comments"><a href="/contribucios/<%=contribucio.id%>">(<%=contribucio.comments.size%>) Comments </a></span>
                   </td>
                   <tr class="spacer" style="height:0px"></tr>
