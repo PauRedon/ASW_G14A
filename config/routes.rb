@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     collection do
       get 'users'
     end
+    member do
+      post 'comment'
+    end
   end
   match '/news' => 'contribucios#news', :via => :get, :as => 'news'
   match '/asks' => 'contribucios#asks', :via => :get, :as => 'asks'
