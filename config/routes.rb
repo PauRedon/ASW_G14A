@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :comments do
     member do
-      post 'commenta'
+      post 'reply_comment'
     end
   end
   resources :users do
@@ -25,12 +25,12 @@ Rails.application.routes.draw do
       get 'users'
     end
     member do
-      post 'comment'
+      post 'comentar'
     end
   end
   match '/news' => 'contribucios#news', :via => :get, :as => 'news'
   match '/asks' => 'contribucios#asks', :via => :get, :as => 'asks'
-  get '/contribucios/users', to: 'contribucios#id'
+  get '/contribucios/users', to: 'contribucios#users'
   
   resources :sessions, :only => [:new, :create, :destroy]
   match '/logout', to: 'sessions#destroy', via: [:get, :post]

@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
   def show
   end
   
-  def commenta
+  def reply_comment
     if !current_user.nil?
       @user_id = current_user.id
       @comment.comment = Comment.find(params[:id])

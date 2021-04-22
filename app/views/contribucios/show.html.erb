@@ -65,7 +65,7 @@
       <%= @contribucio.user.username %>
     </p>
     
-    <%= form_tag :action => "comment", :id => @contribucio %>
+    <%= form_tag :action => "comentar", :id => @contribucio %>
     <textarea name="content" id="comment_content" rows="6" cols="60"></textarea></br>
     <%= submit_tag "add a comment" %>
     </form>
@@ -77,12 +77,10 @@
       <tbody>
         <% @contribucio.comments.each do |comment| %>
           <tr>
-            <% if comment.contribucio.id == @contribucio.id %>
-              <td><a href="/users/<%=@contribucio.user.id%>" > <%=@contribucio.user.username%> </a></td> 
-              <td><%= comment.created_at %> </td>
-              <td><%= comment.content %></td>
-              <td><a href="/comments/<%=comment.id%>">Reply</a></td>
-            <% end %>
+            <td><a href="/users/<%=@contribucio.user.id%>" > <%=@contribucio.user.username%> </a></td> 
+            <td><%= comment.created_at %> </td>
+            <td><%= comment.content %></td>
+            <td><a href="/comments/<%=comment.id%>">Reply</a></td>
           </tr>
         <% end %>
       </tbody>

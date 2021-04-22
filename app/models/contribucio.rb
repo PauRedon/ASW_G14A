@@ -3,8 +3,8 @@ class Contribucio < ApplicationRecord
   belongs_to :user
   has_many :comments
   
-    def author_id
-      self.user_id
-    end
+  def author_id
+    self.user_id
+  end
   
 end

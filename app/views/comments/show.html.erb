@@ -51,7 +51,7 @@
       <%= @comment.content %>
     </p>
 
-    <%= form_tag :action => "commenta", :id => @comment %>
+    <%= form_tag :action => "reply_comment", :id => @comment %>
     <textarea name="content" id="comment_content" rows="6" cols="60"></textarea></br>
     <%= submit_tag "add a comment" %>
     </form>

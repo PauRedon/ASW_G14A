@@ -29,7 +29,7 @@ class ContribuciosController < ApplicationController
   def edit
   end
   
-  def comment
+  def comentar
     if !current_user.nil?
       @user_id = current_user.id
       @contribucio = Contribucio.find(params[:id])
