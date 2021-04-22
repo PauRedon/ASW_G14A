@@ -15,5 +15,10 @@
   <%= @contribucio.texto %>
 </p>
 
+<p>
+  <strong>Autor:</strong>
+  <%= @contribucio.user.username %>
+</p>
+
 <%= link_to 'Edit', edit_contribucio_path(@contribucio) %> |
 <%= link_to 'Back', contribucios_path %>

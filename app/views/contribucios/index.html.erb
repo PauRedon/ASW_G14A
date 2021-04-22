@@ -58,8 +58,8 @@
                       </span>
                   </td></tr>
                 <tr><td colspan="2"></td><td class="subtext">
-                  <span class="score"><%= contribucio.like %> Likes </span> by USER <a href="user?id=twapi" class="hnuser"></a> 
-                  <span class="age"> <a href="item?id=26539673"><%= contribucio.created_at %></a></span> | 
+                  <span class="score"><%= contribucio.like %> Likes </span> by <a href=/users/:<%=contribucio.user.id%> > <%= contribucio.user.username %> </a> |
+                  <span class="age"><%= contribucio.created_at %></span> | 
                   <%= link_to image_tag("like-img.png", width: "12px", height: "12px", border: "0px", margin: "3px 2px 3px"), like_contribucio_path(contribucio), method: :put %>
                   
                   </td>

@@ -37,6 +37,8 @@ class ContribuciosController < ApplicationController
     else
       @contribucio.tipus = 'ask'
     end
+    @user = current_user
+    @contribucio.user = @user
     respond_to do |format|
       if @contribucio.save
         format.html { redirect_to @contribucio, notice: "Contribucio was successfully created." }
@@ -47,6 +49,7 @@ class ContribuciosController < ApplicationController
       end
     end
   end
+  
 
   # PATCH/PUT /contribucios/1 or /contribucios/1.json
   #def update

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_21_145046) do
+ActiveRecord::Schema.define(version: 2021_04_22_172019) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id"
+    t.integer "contribucio_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contribucio_id"], name: "index_comments_on_contribucio_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "contribucios", force: :cascade do |t|
     t.string "tittle"
@@ -20,7 +30,9 @@ ActiveRecord::Schema.define(version: 2021_04_21_145046) do
     t.integer "like", default: 0
     t.string "tipus"
     t.text "texto"
+    t.integer "user_id"
     t.index ["url"], name: "index_contribucios_on_url", unique: true
+    t.index ["user_id"], name: "index_contribucios_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

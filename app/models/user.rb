@@ -5,4 +5,5 @@ class User < ApplicationRecord
             u.password = response[:info][:password]
         end 
     end
+    has_many :contribucios
 end
