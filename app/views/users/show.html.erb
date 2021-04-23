@@ -49,6 +49,10 @@
       <%= @user.username %>
     </p>
     
+    <% if current_user == @user %>
+      <%= render 'form', user: @user %>
+    <% end %>
+    
     <p>
       <strong>Created at:</strong>
       <%= @user.created_at %>
@@ -66,3 +70,5 @@
     <p>
       <strong><a href="/comments/users?id=<%=@user.id %>" > Comments</a></strong>
     </p>
+    
+    
