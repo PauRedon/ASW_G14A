@@ -84,7 +84,9 @@
               <% @voteif = comment.vote_comments.where(user_id: current_user.id) %>
             <% end %>
             <span class="score"><%= @votes.size %> </span> by <a href=/users/<%=comment.user.id%> > <%= comment.user.username %> </a> |
-            <span class="age"><%= comment.created_at %></span> | 
+            <span class="age"><%= comment.created_at %></span> |
+            <span><%= comment.content %></span> |
+            <span><a href="/comments/<%=comment.id%>">Reply</a></span> |
             <% if current_user %>
               <% if @voteif.size == 0 %>
                 <%= link_to image_tag("like-img.png", width: "12px", height: "12px", border: "0px", margin: "3px 2px 3px"), like_comment_path(comment), method: :put %> |
@@ -92,8 +94,7 @@
                 <%= link_to 'Unlike', dislike_comment_path(comment), method: :put %> |
               <% end %>
             <%end%>
-            <td><%= comment.content %></td>
-            <td><a href="/comments/<%=comment.id%>">Reply</a></td>
+            <br>
           </tr>
         <% end %>
       </tbody>

@@ -29,7 +29,7 @@
                     <a <%= link_to "Asks", asks_path %> </a> |
                     
                     <% if current_user %>
-                      <a href="/users/<%=current_user.id%>" > <%= current_user.username %> (<%= current_user.id %>) </a> |
+                      <a style="color:white;text-decoration: none" href="/users/<%=current_user.id%>" > <%= current_user.username %> (<%= current_user.id %>) </a> |
                       <a style="text-align:right" <%= link_to "Log Out", logout_url %> </a>
                     <% else %>
                       <a style="text-align:right" <%= link_to "Register/Log In", new_user_path %> </a> |

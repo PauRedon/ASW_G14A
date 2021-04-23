@@ -100,7 +100,7 @@ class ContribuciosController < ApplicationController
     if !current_user.nil?
       @contribucio = Contribucio.find(params[:id]) 
       Vote.create(user_id: current_user.id, contribucio_id: params[:id])
-      redirect_back(fallback_location: contribucios_url)
+      redirect_back(fallback_location: news_url)
     end
   end
   
