@@ -33,7 +33,7 @@ class ContribuciosController < ApplicationController
     if !current_user.nil?
       @user_id = current_user.id
       @contribucio = Contribucio.find(params[:id])
-      @comment = @contribucio.comments.create(content: params[:content], user_id: @user_id)
+      @comment = @contribucio.comments.create(content: params[:content], user_id: @user_id, contribucio_id: @contribucio.id)
       flash[:notice] = "Added your comment"
       redirect_to :action => "show", :id => params[:id]
     else

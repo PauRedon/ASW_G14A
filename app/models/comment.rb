@@ -8,4 +8,5 @@ class Comment < ApplicationRecord
     def parent
         self.parent
     end
+
 end
