@@ -44,8 +44,10 @@ class ContribuciosController < ApplicationController
   # POST /contribucios or /contribucios.json
   def create
     @contribucio = Contribucio.new(contribucio_params)
+    texto = false
     if(url_valid?(@contribucio.url))
       @contribucio.tipus = 'url'
+      texto = !@contribucio.texto.nil?
     else
       @contribucio.tipus = 'ask'
     end
@@ -53,6 +55,9 @@ class ContribuciosController < ApplicationController
     @contribucio.user = @user
     respond_to do |format|
       if @contribucio.save
+        if texto
+          @comment = @contribucio.comments.create(content: @contribucio.texto, user_id: @user.id)
+        end
         format.html { redirect_to @contribucio, notice: "Contribucio was successfully created." }
         format.json { render :show, status: :created, location: @contribucio }
       else
@@ -120,7 +125,7 @@ class ContribuciosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def contribucio_params
-      params.require(:contribucio).permit(:tittle, :url)
+      params.require(:contribucio).permit(:tittle, :url, :texto)
     end
     
     # a URL may be technically well-formed but may 

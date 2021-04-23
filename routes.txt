@@ -1,4 +1,24 @@
                                   Prefix Verb     URI Pattern                                                                                       Controller#Action
+                           vote_comments GET      /vote_comments(.:format)                                                                          vote_comments#index
+                                         POST     /vote_comments(.:format)                                                                          vote_comments#create
+                        new_vote_comment GET      /vote_comments/new(.:format)                                                                      vote_comments#new
+                       edit_vote_comment GET      /vote_comments/:id/edit(.:format)                                                                 vote_comments#edit
+                            vote_comment GET      /vote_comments/:id(.:format)                                                                      vote_comments#show
+                                         PATCH    /vote_comments/:id(.:format)                                                                      vote_comments#update
+                                         PUT      /vote_comments/:id(.:format)                                                                      vote_comments#update
+                                         DELETE   /vote_comments/:id(.:format)                                                                      vote_comments#destroy
+                                   votes GET      /votes(.:format)                                                                                  votes#index
+                                         POST     /votes(.:format)                                                                                  votes#create
+                                new_vote GET      /votes/new(.:format)                                                                              votes#new
+                               edit_vote GET      /votes/:id/edit(.:format)                                                                         votes#edit
+                                    vote GET      /votes/:id(.:format)                                                                              votes#show
+                                         PATCH    /votes/:id(.:format)                                                                              votes#update
+                                         PUT      /votes/:id(.:format)                                                                              votes#update
+                                         DELETE   /votes/:id(.:format)                                                                              votes#destroy
+                   reply_comment_comment POST     /comments/:id/reply_comment(.:format)                                                             comments#reply_comment
+                          users_comments GET      /comments/users(.:format)                                                                         comments#users
+                            like_comment PUT      /comments/:id/like(.:format)                                                                      comments#like
+                         dislike_comment PUT      /comments/:id/dislike(.:format)                                                                   comments#unlike
                                 comments GET      /comments(.:format)                                                                               comments#index
                                          POST     /comments(.:format)                                                                               comments#create
                              new_comment GET      /comments/new(.:format)                                                                           comments#new
@@ -17,9 +37,11 @@
                                          PUT      /users/:id(.:format)                                                                              users#update
                                          DELETE   /users/:id(.:format)                                                                              users#destroy
                         like_contribucio PUT      /contribucios/:id/like(.:format)                                                                  contribucios#like
+                     dislike_contribucio PUT      /contribucios/:id/dislike(.:format)                                                               contribucios#unlike
                        news_contribucios GET      /contribucios/news(.:format)                                                                      contribucios#news
                        asks_contribucios GET      /contribucios/asks(.:format)                                                                      contribucios#asks
                       users_contribucios GET      /contribucios/users(.:format)                                                                     contribucios#users
+                    comentar_contribucio POST     /contribucios/:id/comentar(.:format)                                                              contribucios#comentar
                             contribucios GET      /contribucios(.:format)                                                                           contribucios#index
                                          POST     /contribucios(.:format)                                                                           contribucios#create
                          new_contribucio GET      /contribucios/new(.:format)                                                                       contribucios#new
@@ -30,7 +52,7 @@
                                          DELETE   /contribucios/:id(.:format)                                                                       contribucios#destroy
                                     news GET      /news(.:format)                                                                                   contribucios#news
                                     asks GET      /asks(.:format)                                                                                   contribucios#asks
-                      contribucios_users GET      /contribucios/users(.:format)                                                                     contribucios#id
+                      contribucios_users GET      /contribucios/users(.:format)                                                                     contribucios#users
                                 sessions POST     /sessions(.:format)                                                                               sessions#create
                              new_session GET      /sessions/new(.:format)                                                                           sessions#new
                                  session DELETE   /sessions/:id(.:format)                                                                           sessions#destroy

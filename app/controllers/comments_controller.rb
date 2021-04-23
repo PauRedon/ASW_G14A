@@ -72,6 +72,29 @@ class CommentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def users
+    id = params[:id]
+    user = User.find(id)
+    @comments = user.comments
+  end
+  
+  def like
+    if !current_user.nil?
+      @comment = Comment.find(params[:id]) 
+      VoteComment.create(user_id: current_user.id, comment_id: params[:id])
+      redirect_back(fallback_location: users_comments_url)
+    end
+  end
+  
+  def unlike
+    if !current_user.nil?
+      @comment = Comment.find(params[:id]) 
+      @vote = VoteComment.where(user_id: current_user.id, comment_id: params[:id])
+      @comment.vote_comments.destroy(@vote)
+      redirect_back(fallback_location: users_comments_url)
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

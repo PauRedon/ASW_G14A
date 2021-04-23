@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
+  resources :vote_comments
   resources :votes
   resources :comments do
     member do
       post 'reply_comment'
+    end
+    collection do
+      get 'users'
+    end
+    member do
+      put 'like', to: 'comments#like'
+      put 'dislike', to: 'comments#unlike'
     end
   end
   resources :users do

@@ -1,0 +1,17 @@
+<%= form_with(model: vote_comment) do |form| %>
+  <% if vote_comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(vote_comment.errors.count, "error") %> prohibited this vote_comment from being saved:</h2>
+
+      <ul>
+        <% vote_comment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

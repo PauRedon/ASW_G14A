@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_225100) do
+ActiveRecord::Schema.define(version: 2021_04_23_073409) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_225100) do
     t.string "tipus"
     t.text "texto"
     t.integer "user_id"
-    t.index ["url"], name: "index_contribucios_on_url", unique: true
+    t.index ["url"], name: "index_contribucios_on_url", unique: true, where: "url IS NOT NULL"
     t.index ["user_id"], name: "index_contribucios_on_user_id"
   end
 
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 2021_04_22_225100) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "vote_comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "comment_id"
+    t.index ["comment_id"], name: "index_vote_comments_on_comment_id"
+    t.index ["user_id"], name: "index_vote_comments_on_user_id"
+  end
+
   create_table "votes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -57,6 +64,8 @@ ActiveRecord::Schema.define(version: 2021_04_22_225100) do
   end
 
   add_foreign_key "comments", "comments", column: "parent_id"
+  add_foreign_key "vote_comments", "comments"
+  add_foreign_key "vote_comments", "users"
   add_foreign_key "votes", "contribucios"
   add_foreign_key "votes", "users"
 end
