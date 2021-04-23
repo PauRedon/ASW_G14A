@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
     if !current_user.nil?
       @user_id = current_user.id
       @comment = Comment.find(params[:id])
-      @comment = @comment.replies.create(content: params[:content], user_id: @user_id, parent_id: params[:id])
+      @reply = @comment.replies.create(content: params[:content], user_id: @user_id, parent_id: @comment.id)
       flash[:notice] = "Added your comment"
       redirect_to :action => "show", :id => params[:id]
     else

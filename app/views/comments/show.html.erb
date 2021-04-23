@@ -45,7 +45,11 @@
     </center>
   </body>
 
-
+    <p>
+      <strong>Author:</strong>
+      <%= @comment.user.username %>
+    </p>
+    
     <p>
       <strong>Content:</strong>
       <%= @comment.content %>
