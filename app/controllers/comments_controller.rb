@@ -79,6 +79,11 @@ class CommentsController < ApplicationController
     @comments = user.comments
   end
   
+  def commented
+    id = params[:id]
+    @contribucios = Comments.where(user_id: id).contribucios
+  end
+  
   def like
     if !current_user.nil?
       @comment = Comment.find(params[:id]) 

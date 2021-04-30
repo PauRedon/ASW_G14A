@@ -27,7 +27,7 @@ class VotesController < ApplicationController
     respond_to do |format|
       @vote = Vote.new(vote_params)
       @vote.user_id = current_user.id
-
+      @contirbucio = Contribucio.find(@vote.contribucio_id)
       if @vote.save
         format.html { redirect_to :back }
         format.json { render :show, status: :ok, location: @vote }

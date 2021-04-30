@@ -45,25 +45,30 @@ class ContribuciosController < ApplicationController
   def create
     @contribucio = Contribucio.new(contribucio_params)
     texto = false
-    if(url_valid?(@contribucio.url))
-      @contribucio.tipus = 'url'
-      texto = !@contribucio.texto.nil?
-    else
-      @contribucio.tipus = 'ask'
-    end
-    @user = current_user
-    @contribucio.user = @user
-    respond_to do |format|
-      if @contribucio.save
-        if texto
-          @comment = @contribucio.comments.create(content: @contribucio.texto, user_id: @user.id)
-        end
-        format.html { redirect_to @contribucio, notice: "Contribucio was successfully created." }
-        format.json { render :show, status: :created, location: @contribucio }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @contribucio.errors, status: :unprocessable_entity }
+    if(url_valid?(@contribucio.url)) && !@contribucio.texto.blank?
+      if (url_valid?(@contribucio.url))
+        @contribucio.tipus = 'url'
+        texto = !@contribucio.texto.blank?
+      else 
+        @contribucio.tipus = 'ask'
       end
+      @user = current_user
+      @contribucio.user = @user
+      respond_to do |format|
+        if @contribucio.save
+          if texto
+            @comment = @contribucio.comments.create(content: @contribucio.texto, user_id: @user.id)
+          end
+          format.html { redirect_to @contribucio, notice: "Contribucio was successfully created." }
+          format.json { render :show, status: :created, location: @contribucio }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @contribucio.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      flash[:notice] = "URL IS NOT VALID"
+      redirect_to :action => "index"
     end
   end
   
@@ -71,6 +76,15 @@ class ContribuciosController < ApplicationController
     id = params[:id]
     user = User.find(id)
     @contribucios = user.contribucios
+  end
+  
+  def liked
+    id = params[:id]
+    @votes = Vote.where(user_id: id)
+    @votes.each do |vote|  
+    
+    end  
+    
   end
   
 
@@ -100,7 +114,9 @@ class ContribuciosController < ApplicationController
     if !current_user.nil?
       @contribucio = Contribucio.find(params[:id]) 
       Vote.create(user_id: current_user.id, contribucio_id: params[:id])
-      redirect_back(fallback_location: news_url)
+      @contribucio.like += 1
+      @contribucio.save
+      redirect_back fallback_location: contribucios_url
     end
   end
   
@@ -108,8 +124,10 @@ class ContribuciosController < ApplicationController
     if !current_user.nil?
       @contribucio = Contribucio.find(params[:id]) 
       @vote = Vote.where(user_id: current_user.id, contribucio_id: params[:id])
+      @contribucio.like = @contribucio.like - 1
+      @contribucio.save
       @contribucio.votes.destroy(@vote)
-      redirect_back(fallback_location: contribucios_url)
+      redirect_back fallback_location: contribucios_url
     end
   end
 

@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 2021_04_23_073409) do
     t.string "tipus"
     t.text "texto"
     t.integer "user_id"
-    t.index ["url"], name: "index_contribucios_on_url", unique: true
     t.index ["user_id"], name: "index_contribucios_on_user_id"
   end
 

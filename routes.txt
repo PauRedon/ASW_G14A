@@ -19,6 +19,7 @@
                           users_comments GET      /comments/users(.:format)                                                                         comments#users
                             like_comment PUT      /comments/:id/like(.:format)                                                                      comments#like
                          dislike_comment PUT      /comments/:id/dislike(.:format)                                                                   comments#unlike
+                      commented_comments GET      /comments/commented(.:format)                                                                     comments#commented
                                 comments GET      /comments(.:format)                                                                               comments#index
                                          POST     /comments(.:format)                                                                               comments#create
                              new_comment GET      /comments/new(.:format)                                                                           comments#new
@@ -42,6 +43,7 @@
                        asks_contribucios GET      /contribucios/asks(.:format)                                                                      contribucios#asks
                       users_contribucios GET      /contribucios/users(.:format)                                                                     contribucios#users
                     comentar_contribucio POST     /contribucios/:id/comentar(.:format)                                                              contribucios#comentar
+                      liked_contribucios GET      /contribucios/liked(.:format)                                                                     contribucios#liked
                             contribucios GET      /contribucios(.:format)                                                                           contribucios#index
                                          POST     /contribucios(.:format)                                                                           contribucios#create
                          new_contribucio GET      /contribucios/new(.:format)                                                                       contribucios#new
@@ -53,6 +55,8 @@
                                     news GET      /news(.:format)                                                                                   contribucios#news
                                     asks GET      /asks(.:format)                                                                                   contribucios#asks
                       contribucios_users GET      /contribucios/users(.:format)                                                                     contribucios#users
+                                         GET      /contribucios/liked/:id(.:format)                                                                 contribucios#liked
+                                         GET      /comments/commented/:id(.:format)                                                                 comments#commented
                                 sessions POST     /sessions(.:format)                                                                               sessions#create
                              new_session GET      /sessions/new(.:format)                                                                           sessions#new
                                  session DELETE   /sessions/:id(.:format)                                                                           sessions#destroy
