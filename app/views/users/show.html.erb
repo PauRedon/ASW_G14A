@@ -70,13 +70,14 @@
     <p>
       <strong><a href="/comments/users?id=<%=@user.id %>" > Comments</a></strong>
     </p>
-    
-    <p>
-      <strong><a href="/contribucios/liked/:id=<%=@user.id %>">Liked</a></strong>
-    </p>
-    
-    <p>
-      <strong><a href="/comments/commented/:id=<%@user.id %>">Commented</a></strong>
-    </p>
+    <% if @user = current_user %>
+      <p>
+        <strong><a href="/contribucios/liked/users?id=<%=@user.id %>">Liked</a></strong>
+      </p>
+      
+      <p>
+        <strong><a href="/comments/commented/users?id=<%@user.id %>">Commented</a></strong>
+      </p>
+    <% end %>
     
     

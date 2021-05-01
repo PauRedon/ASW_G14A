@@ -94,6 +94,28 @@
                 <%= link_to 'Unlike', dislike_comment_path(comment), method: :put %> |
               <% end %>
             <%end%>
+            <% comment.replies.each do |reply| %>
+              <br>
+              <tr>
+                <td>
+                  <% @votes = reply.vote_comments %>
+                  <% if current_user %>
+                    <% @voteif = reply.vote_comments.where(user_id: current_user.id) %>
+                  <% end %>
+                  <span class="score"><%= @votes.size %> </span> by <a href=/users/<%=reply.user.id%> > <%= reply.user.username %> </a> |
+                  <span class="age"><%= reply.created_at %></span> |
+                  <span><%= reply.content %></span> |
+                  <span><a href="/comments/<%=reply.id%>">Reply</a></span> |
+                  <% if current_user %>
+                    <% if @voteif.size == 0 %>
+                      <%= link_to image_tag("like-img.png", width: "12px", height: "12px", border: "0px", margin: "3px 2px 3px"), like_comment_path(reply), method: :put %> |
+                    <% else %>
+                      <%= link_to 'Unlike', dislike_comment_path(reply), method: :put %> |
+                    <% end %>
+                  <%end%>
+                </td>
+              </tr>
+            <%end%>
             <br>
           </tr>
         <% end %>

@@ -46,8 +46,8 @@ Rails.application.routes.draw do
   match '/news' => 'contribucios#news', :via => :get, :as => 'news'
   match '/asks' => 'contribucios#asks', :via => :get, :as => 'asks'
   get '/contribucios/users', to: 'contribucios#users'
-  get '/contribucios/liked/:id', to: 'contribucios#liked'
-  get '/comments/commented/:id', to: 'comments#commented'
+  get '/contribucios/liked/users', to: 'contribucios#liked'
+  get '/comments/commented/users', to: 'comments#commented'
   
   resources :sessions, :only => [:new, :create, :destroy]
   match '/logout', to: 'sessions#destroy', via: [:get, :post]

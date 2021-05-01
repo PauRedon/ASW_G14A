@@ -81,10 +81,7 @@ class ContribuciosController < ApplicationController
   def liked
     id = params[:id]
     @votes = Vote.where(user_id: id)
-    @votes.each do |vote|  
-    
-    end  
-    
+    @contribucios = Contribucio.all
   end
   
 
