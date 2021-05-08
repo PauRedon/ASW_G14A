@@ -1,0 +1,407 @@
+openapi: 3.0.1
+info:
+  version: 1.0.0
+  title: HackerNews G14A
+  description: "Projecte de l'assignatura d'ASW. <br> Membres:<li>Pau Redon Milian <br> <li> Jaume Armengol Tapiolas <br> <li> Antonio Barrantes Montilla <br> <li> Alejandro Santandreu Rodriguez <br> <li> Joel Crespo Tugores"
+servers:
+  - url: 'http://54.152.54.176:8080'
+paths:
+  /contribucios:
+    get:
+      tags:
+      - Contribucios
+      summary: Retrieves all the Contributions
+      operationId: getAllContribucios
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Contribucio'
+    post:
+      tags:
+      - Contribucios
+      summary: Adds a new contribution to Hacker News
+      operationId: addContribution
+      requestBody:
+        description: Provide the author, url & content of the new Contribution. URL must be valid. User must provide either URL or content. Providing both will make content be a Comment or text plain.
+        content:
+          application/json:
+            schema:
+              required:
+              - tittle
+              - url
+              type: object
+              properties:
+                tittle:
+                  type: string
+                  minLength: 4
+                  example: 'My title'
+                url:
+                  type: string
+                  format: url
+                  example: 'Contribution url'
+                content:
+                  type: string
+                  example: 'Contribution content'
+        required: true
+      responses:
+        201:
+          description: Contribution created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contribucio'
+        400:
+          description: 'Error: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error400'
+  /contribucios/news:
+    get:
+      tags:
+      - Contribucios
+      summary: Shows Contribucios sorted by creation date
+      description: Returns an array of Contributions
+      operationId: getContribuciosNews
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contribucio'
+  /contribucios/asks:
+    get:
+      tags:
+      - Contribucios
+      summary: Shows Contribucios of type Ask
+      description: Returns an array of Contributions
+      operationId: getContribuciosAsks
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contribucio'
+  /contribucios/{contribucioId}:
+    get:
+      tags:
+      - Contribucios
+      summary: Shows a Contribution
+      operationId: showContribution
+      parameters:
+      - name: contribucioId
+        in: path
+        description: Id of the contribution
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Contribution
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contribucio'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+  /contribucios/{contribucioId}/comentar:
+    post:
+      tags:
+      - Contribucios
+      summary: Adds a new comment to Contribution with id = contribucioId
+      operationId: addComment
+      parameters:
+      - name: contribucioId
+        in: path
+        description: Id of the contribution
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        201:
+          description: Comment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contribucio'
+        400:
+          description: 'Error: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error400'
+  /users/{userId}:
+    get:
+      tags:
+      - Users
+      summary: Shows an existent User
+      operationId: showUser
+      parameters:
+      - name: userId
+        in: path
+        description: Id of the user
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /comments/{commentId}:
+    get:
+      tags:
+      - Comments
+      summary: Shows a Comment
+      operationId: showComment
+      parameters:
+      - name: commentId
+        in: path
+        description: Id of the comment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Comment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+  /comments/{commentId}/reply_comment:
+    post:
+      tags:
+      - Comments
+      summary: Adds a new reply to Comment with id = commentId
+      operationId: addReply
+      parameters:
+      - name: commentId
+        in: path
+        description: Id of the comment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        201:
+          description: Reply created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contribucio'
+        400:
+          description: 'Error: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error400'
+components:
+  schemas:
+    Contribucio:
+      type: object
+      required: [id, author, tittle, likes, comments, _links]
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: "My id"
+        author:
+          type: string
+          minLength: 4
+          example: 'My name'
+        tittle:
+          type: string
+          minLength: 4
+          example: 'My name'
+        url:
+          type: string
+          format: url
+          example: 'http://myurl.com'
+        content:
+          type: string
+          example: 'My content'
+        likes:
+          type: integer
+          format: int32
+          default: 0
+        created_at:
+          type: string
+          format: date-time
+        _links:
+          type: object
+          properties:
+            self:
+              type: string
+              format: url
+              example: 'https://asw-api-demo.herokuapp.com/contribucios/myid'
+    User:
+      type: object
+      required: [id, username, created_at]
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: "My id"
+        username:
+          type: string
+          example: 'My username'
+        password:
+          type: string
+          example: 'My password'
+        created_at:
+          type: string
+          format: date-time
+        _links:
+          type: object
+          properties:
+            mycontribucios:
+              type: string
+              format: url
+              example: 'https://asw-api-demo.herokuapp.com/contribucios/users?id=myid'
+            mycomments:
+              type: string
+              format: url
+              example: 'https://asw-api-demo.herokuapp.com/comments/users?id=myid'
+            contribuciosliked:
+              type: string
+              format: url
+              example: 'https://asw-api-demo.herokuapp.com/contribucios/liked/users?id=myid'
+            contribucioscommented:
+              type: string
+              format: url
+              example: 'https://asw-api-demo.herokuapp.com/comments/commented/users?id=myid'
+    Comment:
+      type: object
+      required: [id, author, tittle, likes, comments, _links]
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: "My id"
+        parentid:
+          type: integer
+          format: int64
+          example: "My parent id"
+        content:
+          type: string
+          example: 'My content'
+        likes:
+          type: integer
+          format: int32
+          default: 0
+        created_at:
+          type: string
+          format: date-time
+    Vote:
+      type: object
+      required: [id, userId, contribucioId, created_at]
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: "My id"
+        userId:
+          type: integer
+          format: int64
+          example: "User id"
+        contribucioId:
+          type: integer
+          format: int64
+          example: "Contribucio id"
+        created_at:
+          type: string
+          format: date-time
+    VoteComments:
+      type: object
+      required: [id, userId, commentId, created_at]
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: "My id"
+        userId:
+          type: integer
+          format: int64
+          example: "User id"
+        contribucioId:
+          type: integer
+          format: int64
+          example: "Contribucio id"
+        created_at:
+          type: string
+          format: date-time    
+    ErrorResult:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum: [400, 401, 403, 404, 409]
+        error: 
+          type: string
+          enum: ["Bad Request", "Unauthorized", "Forbidden", "Not Found", "Conflict"]
+        message: 
+          type: string
+  examples:
+    error400:
+      value:
+        status: 400
+        error: "Bad Request"
+        message: "Content is too long (maximum is 280 characters)"
+    error401:
+      value:
+        status: 401
+        error: "Unauthorized"
+        message: "You provided no api key (X-API-KEY Header)"
+    error403:
+      value:
+        status: 403
+        error: "Forbidden"
+        message: "Your api key (X-API-KEY Header) is not valid"
+    error404:
+      value:
+        status: 404
+        error: "Not Found"
+        message: "No Tweet with that ID"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-API-KEY #Custom headers in rails apps must have the X- prefix
+      in: header
