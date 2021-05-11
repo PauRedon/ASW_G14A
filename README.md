@@ -4,6 +4,7 @@ Pau Redon
 Alejandro Santandreu
 Joel Crespo
 Antonio Barrantes
+Jaume Armengol
 ```
 #To execute:
 ```
