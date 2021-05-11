@@ -55,31 +55,36 @@ class ContribuciosController < ApplicationController
 
   # POST /contribucios or /contribucios.json
   def create
-    @contribucio = Contribucio.new(contribucio_params)
-    texto = false
-    if(url_valid?(@contribucio.url)) || !@contribucio.texto.blank?
-      if (url_valid?(@contribucio.url))
-        @contribucio.tipus = 'url'
-        texto = !@contribucio.texto.blank?
-      else 
-        @contribucio.tipus = 'ask'
-      end
-      @user = current_user
-      @contribucio.user = @user
-      respond_to do |format|
-        if @contribucio.save
-          if texto
-            @comment = @contribucio.comments.create(content: @contribucio.texto, user_id: @user.id)
-          end
-          format.html { redirect_to @contribucio, notice: "Contribucio was successfully created." }
-          format.json { render :show, status: :created, location: @contribucio }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @contribucio.errors, status: :unprocessable_entity }
+    if !current_user.blank? || User.where(user_id: params[:ApiKeyAuth])
+      @contribucio = Contribucio.new(contribucio_params)
+      texto = false
+      if(url_valid?(@contribucio.url) && !Contribucio.where(url: params[:url])) || !@contribucio.texto.blank?
+        if (url_valid?(@contribucio.url))
+          @contribucio.tipus = 'url'
+          texto = !@contribucio.texto.blank?
+        else 
+          @contribucio.tipus = 'ask'
         end
+        @user = current_user
+        @contribucio.user = @user
+        respond_to do |format|
+          if @contribucio.save
+            if texto
+              @comment = @contribucio.comments.create(content: @contribucio.texto, user_id: @user.id)
+            end
+            format.html { redirect_to @contribucio, notice: "Contribucio was successfully created." }
+            format.json { render :show, status: :created, location: @contribucio }
+          else
+            format.html { render :new, status: :unprocessable_entity }
+            format.json { render json: @contribucio.errors, status: :unprocessable_entity }
+          end
+        end
+      else
+        flash[:notice] = "URL IS NOT VALID"
+        redirect_to :action => "index"
       end
-    else
-      flash[:notice] = "URL IS NOT VALID"
+    else 
+      flash[:notice] = "USER NOT LOGGED"
       redirect_to :action => "index"
     end
   end
