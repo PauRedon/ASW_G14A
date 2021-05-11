@@ -3,7 +3,19 @@ class ContribuciosController < ApplicationController
 
   # GET /contribucios or /contribucios.json
   def index
-    @contribucios = Contribucio.where(tipus: 'url').order(like: :desc)
+    if !params[:userid].blank?
+      @contribucios = Contribucio.where(user_id: params[:userid]).order(like: :desc) 
+    elsif !params[:likedid].blank?
+      @votes = Vote.where(user_id: params[:likedid])
+      for v in @votes
+        contribucio = Contribucio.where(contribucio_id: v.contribucio_id)
+        @contribucios+=contribucio
+      end
+    elsif !params[:userid].blank?
+      @contribucios = Comments.where(user_id: params[:userid]).contribucios
+    else 
+      @contribucios = Contribucio.where(tipus: 'url').order(like: :desc)
+    end
   end
 
 
@@ -45,7 +57,7 @@ class ContribuciosController < ApplicationController
   def create
     @contribucio = Contribucio.new(contribucio_params)
     texto = false
-    if(url_valid?(@contribucio.url)) && !@contribucio.texto.blank?
+    if(url_valid?(@contribucio.url)) || !@contribucio.texto.blank?
       if (url_valid?(@contribucio.url))
         @contribucio.tipus = 'url'
         texto = !@contribucio.texto.blank?
@@ -72,17 +84,17 @@ class ContribuciosController < ApplicationController
     end
   end
   
-  def users
-    id = params[:id]
-    user = User.find(id)
-    @contribucios = user.contribucios
-  end
+  #def users
+  #  id = params[:id]
+  #  user = User.find(id)
+  #  @contribucios = user.contribucios
+  #end
   
-  def liked
-    id = params[:id]
-    @votes = Vote.where(user_id: id)
-    @contribucios = Contribucio.all
-  end
+  #def liked
+  #  id = params[:id]
+  #  @votes = Vote.where(user_id: id)
+  #  @contribucios = Contribucio.all
+  #end
   
 
   # PATCH/PUT /contribucios/1 or /contribucios/1.json
@@ -113,7 +125,7 @@ class ContribuciosController < ApplicationController
       Vote.create(user_id: current_user.id, contribucio_id: params[:id])
       @contribucio.like += 1
       @contribucio.save
-      redirect_back fallback_location: contribucios_url
+      #format.html { redirect_back(fallback_location: users_comments_url) }
     end
   end
   
@@ -124,7 +136,7 @@ class ContribuciosController < ApplicationController
       @contribucio.like = @contribucio.like - 1
       @contribucio.save
       @contribucio.votes.destroy(@vote)
-      redirect_back fallback_location: contribucios_url
+      format.html { redirect_to request.referer }
     end
   end
 

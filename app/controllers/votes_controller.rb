@@ -29,10 +29,10 @@ class VotesController < ApplicationController
       @vote.user_id = current_user.id
       @contirbucio = Contribucio.find(@vote.contribucio_id)
       if @vote.save
-        format.html { redirect_to :back }
+        format.html { redirect_back(fallback_location: users_comments_url) }
         format.json { render :show, status: :ok, location: @vote }
       else
-        redirect_to :back
+        format.html { redirect_to request.referer }
       end
     end
   end
@@ -56,7 +56,7 @@ class VotesController < ApplicationController
   def destroy
     @vote.destroy
     respond_to do |format|
-      format.html { redirect_to votes_url, notice: 'Vote was successfully destroyed.' }
+      format.html { redirect_to request.referrer }
       format.json { head :no_content }
     end
   end

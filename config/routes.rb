@@ -5,15 +5,9 @@ Rails.application.routes.draw do
     member do
       post 'reply_comment'
     end
-    collection do
-      get 'users'
-    end
     member do
       put 'like', to: 'comments#like'
       put 'dislike', to: 'comments#unlike'
-    end
-    collection do
-      get 'commented'
     end
   end
   resources :users do
@@ -46,8 +40,6 @@ Rails.application.routes.draw do
   match '/news' => 'contribucios#news', :via => :get, :as => 'news'
   match '/asks' => 'contribucios#asks', :via => :get, :as => 'asks'
   get '/contribucios/users', to: 'contribucios#users'
-  get '/contribucios/liked/users', to: 'contribucios#liked'
-  get '/comments/commented/users', to: 'comments#commented'
   
   resources :sessions, :only => [:new, :create, :destroy]
   match '/logout', to: 'sessions#destroy', via: [:get, :post]

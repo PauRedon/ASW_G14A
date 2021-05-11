@@ -64,19 +64,19 @@
     </p>
     
     <p>
-      <strong><a href="/contribucios/users?id=<%=@user.id %>" > Contribucions</a></strong>
+      <strong><a href="/contribucios?userid=<%=@user.id %>" > Contribucions</a></strong>
     </p>
     
     <p>
-      <strong><a href="/comments/users?id=<%=@user.id %>" > Comments</a></strong>
+      <strong><a href="/comments?userid=<%=@user.id %>" > Comments</a></strong>
     </p>
     <% if @user = current_user %>
       <p>
-        <strong><a href="/contribucios/liked/users?id=<%=@user.id %>">Liked</a></strong>
+        <strong><a href="/contribucios?likedid=<%=@user.id %>">Liked</a></strong>
       </p>
       
       <p>
-        <strong><a href="/comments/commented/users?id=<%@user.id %>">Commented</a></strong>
+        <strong><a href="/comments?commentedid=<%@user.id %>">Commented</a></strong>
       </p>
     <% end %>
     
