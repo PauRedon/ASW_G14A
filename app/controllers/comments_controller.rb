@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     if !params[:commentedid].blank?
       @comments = Comment.joins(:vote_comments)
     elsif !params[:userid]
-      @comments = Comment.where(user_id: params[:user_id])
+       @comments = Comment.joins("INNER JOIN vote_comments ON vote_comments.comment_id = comments.id").group!("vote_comments.user_id").having!("vote_comments.user_id=?",current_user.id)
     else
       @comments = Comment.all
     end

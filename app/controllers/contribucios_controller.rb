@@ -6,7 +6,7 @@ class ContribuciosController < ApplicationController
     if !params[:userid].blank?
       @contribucios = Contribucio.where(user_id: params[:userid]).order(like: :desc) 
     elsif !params[:likedid].blank?
-      @contribucios = Contribucio.joins(:votes)
+      @contribucios = Contribucio.joins("INNER JOIN votes ON votes.contribucio_id = contribucios.id").group!("votes.user_id").having!("votes.user_id=?",current_user.id)
     else 
       @contribucios = Contribucio.where(tipus: 'url').order(like: :desc)
     end
@@ -135,7 +135,8 @@ class ContribuciosController < ApplicationController
       @contribucio.like = @contribucio.like - 1
       @contribucio.save
       @contribucio.votes.destroy(@vote)
-      format.html { redirect_to request.referer }
+      Vote.where(user_id: current_user.id, contribucio_id: params[:id]).destroy_all
+      #format.html { redirect_to request.referer }
     end
   end
 
