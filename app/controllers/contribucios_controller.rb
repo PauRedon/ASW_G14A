@@ -55,7 +55,7 @@ class ContribuciosController < ApplicationController
 
   # POST /contribucios or /contribucios.json
   def create
-    if User.where(user_id: headers[:apiKey]) || !current_user.blank?
+    if User.where(user_id: request.headers[:apiKey]) || !current_user.blank?
       @contribucio = Contribucio.new(contribucio_params)
       texto = false
       if(url_valid?(@contribucio.url) && !Contribucio.where(url: params[:url])) || !@contribucio.texto.blank?
