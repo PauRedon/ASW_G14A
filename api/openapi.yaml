@@ -5,6 +5,8 @@ info:
   description: "Projecte de l'assignatura d'ASW. <br> Membres:<li>Pau Redon Milian <br> <li> Jaume Armengol Tapiolas <br> <li> Antonio Barrantes Montilla <br> <li> Alejandro Santandreu Rodriguez <br> <li> Joel Crespo Tugores"
 servers:
   - url: 'https://hacker-news-g14a.herokuapp.com/'
+  - url: 'http://54.147.169.144:8080'
+
 paths:
   /contribucios:
     get:
@@ -23,6 +25,8 @@ paths:
                   $ref: '#/components/schemas/Contribucio'
   /contribucios/new:
     post:
+      security:
+        - ApiKeyAuth: [] 
       tags:
       - Contribucios
       summary: Adds a new contribution to Hacker News
