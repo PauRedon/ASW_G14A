@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_23_073409) do
+ActiveRecord::Schema.define(version: 2021_05_11_190304) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 2021_04_23_073409) do
     t.string "tipus"
     t.text "texto"
     t.integer "user_id"
-    t.index ["url"], name: "index_contribucios_on_url", unique: true, where: "url IS NOT NULL"
     t.index ["user_id"], name: "index_contribucios_on_user_id"
   end
 
