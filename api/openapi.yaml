@@ -5,7 +5,7 @@ info:
   description: "Projecte de l'assignatura d'ASW. <br> Membres:<li>Pau Redon Milian <br> <li> Jaume Armengol Tapiolas <br> <li> Antonio Barrantes Montilla <br> <li> Alejandro Santandreu Rodriguez <br> <li> Joel Crespo Tugores"
 servers:
   - url: 'https://hacker-news-g14a.herokuapp.com/'
-  - url: 'http://54.147.169.144:8080'
+  - url: 'http://34.227.24.211:8080'
 
 paths:
   /contribucios:
@@ -14,6 +14,21 @@ paths:
       - Contribucios
       summary: Retrieves all the Contributions
       operationId: getAllContribucios
+      parameters:
+      - name: userid
+        in: query
+        description: Id of the user
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: likedid
+        in: query
+        description: Id of the user
+        required: false
+        schema:
+          type: integer
+          format: int64
       responses:
         200:
           description: successful operation
@@ -23,10 +38,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Contribucio'
-  /contribucios/new:
     post:
-      security:
-        - ApiKeyAuth: [] 
       tags:
       - Contribucios
       summary: Adds a new contribution to Hacker News
@@ -68,6 +80,9 @@ paths:
               examples:
                 errorExample:
                   $ref: '#/components/examples/error400'
+      security:
+        - ApiKeyAuth: [] 
+  
   /contribucios/news:
     get:
       tags:
@@ -191,6 +206,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+  /comments:
+    get:
+      tags:
+      - Comments
+      summary: Retrieves all the Comments
+      operationId: getAllComments
+      parameters:
+      - name: userid
+        in: query
+        description: Id of the user
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: commentedid
+        in: query
+        description: Id of the user
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Contribucio'
   /comments/{commentId}:
     get:
       tags:
