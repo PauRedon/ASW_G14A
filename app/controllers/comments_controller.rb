@@ -5,7 +5,9 @@ class CommentsController < ApplicationController
   # GET /comments.json
   def index
     if !params[:commentedid].blank?
-      @contribucios = Comments.where(user_id: params[:commentedid]).contribucios
+      @comments = Comment.joins(:vote_comments)
+    elsif !params[:userid]
+      @comments = Comment.where(user_id: params[:user_id])
     else
       @comments = Comment.all
     end
@@ -92,7 +94,7 @@ class CommentsController < ApplicationController
     if !current_user.nil?
       @comment = Comment.find(params[:id]) 
       VoteComment.create(user_id: current_user.id, comment_id: params[:id])
-      format.html { redirect_back(fallback_location: users_comments_url) }
+      #format.html { redirect_back(fallback_location: users_comments_url) }
     end
   end
   
@@ -101,7 +103,7 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id]) 
       @vote = VoteComment.where(user_id: current_user.id, comment_id: params[:id])
       @comment.vote_comments.destroy(@vote)
-      format.html { redirect_back(fallback_location: users_comments_url) }
+      #format.html { redirect_back(fallback_location: users_comments_url) }
     end
   end
 

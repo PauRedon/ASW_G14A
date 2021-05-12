@@ -6,13 +6,7 @@ class ContribuciosController < ApplicationController
     if !params[:userid].blank?
       @contribucios = Contribucio.where(user_id: params[:userid]).order(like: :desc) 
     elsif !params[:likedid].blank?
-      @votes = Vote.where(user_id: params[:likedid])
-      for v in @votes
-        contribucio = Contribucio.where(contribucio_id: v.contribucio_id)
-        @contribucios+=contribucio
-      end
-    elsif !params[:userid].blank?
-      @contribucios = Comments.where(user_id: params[:userid]).contribucios
+      @contribucios = Contribucio.joins("INNER JOIN votes ON votes.user_id")
     else 
       @contribucios = Contribucio.where(tipus: 'url').order(like: :desc)
     end
@@ -58,7 +52,7 @@ class ContribuciosController < ApplicationController
     if User.where(user_id: request.headers[:apiKey]) || !current_user.blank?
       @contribucio = Contribucio.new(contribucio_params)
       texto = false
-      if(url_valid?(@contribucio.url) && !Contribucio.where(url: params[:url])) || !@contribucio.texto.blank?
+      if url_valid?(@contribucio.url) || !@contribucio.texto.blank?
         if (url_valid?(@contribucio.url))
           @contribucio.tipus = 'url'
           texto = !@contribucio.texto.blank?
