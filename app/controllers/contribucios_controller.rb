@@ -17,9 +17,9 @@ class ContribuciosController < ApplicationController
   #GET /news or /news.json
   def news
     @contribucios = Contribucio.all.order(created_at: :desc)
-    respond_to do |format|
-        format.json {render json: @contribucios}
-      end
+    #respond_to do |format|
+     # format.json {render json: @contribucios}
+    #end
   end
 
   # GET /contribucios/1 or /contribucios/1.json
@@ -29,8 +29,8 @@ class ContribuciosController < ApplicationController
   def asks
     @contribucios = Contribucio.where(tipus: 'ask').order(like: :desc)
     respond_to do |format|
-        format.json {render json: @contribucios}
-      end
+      format.json {render json: @contribucios}
+    end
   end
 
   # GET /contribucios/new
@@ -63,17 +63,6 @@ class ContribuciosController < ApplicationController
 
   # POST /contribucios or /contribucios.json
   def create
-    if User.where(user_id: request.headers[:apiKey]) || !current_user.blank?
-    if !current_user.blank? || User.where(user_id: params[:id])
-      @contribucio = Contribucio.new(contribucio_params)
-      texto = false
-      if url_valid?(@contribucio.url) || !@contribucio.texto.blank?
-        if (url_valid?(@contribucio.url))
-          @contribucio.tipus = 'url'
-          texto = !@contribucio.texto.blank?
-        else 
-          @contribucio.tipus = 'ask'
-        end
     respond_to do |format|
       if request.headers['X-API-KEY'].present?
         @user = User.where(id: request.headers['X-API-KEY'])
@@ -95,7 +84,7 @@ class ContribuciosController < ApplicationController
           @contribucio.user_id = id
           if @contribucio.save
             if texto
-              @comment = @contribucio.comments.create(content: @contribucio.texto, user_id: @user.id)
+              @comment = @contribucio.comments.create(content: @contribucio.texto, user_id: id)
             end
             format.html { redirect_to @contribucio, notice: "Contribucio was successfully created." }
             format.json { render :show, status: :created, location: @contribucio }
