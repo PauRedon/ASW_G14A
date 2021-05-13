@@ -1,13 +1,14 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /comments
   # GET /comments.json
   def index
     if !params[:commentedid].blank?
       @comments = Comment.joins(:vote_comments)
-    elsif !params[:userid]
-      @comments = Comment.where(user_id: params[:user_id])
+    elsif !params[:userid].blank?
+       @comments = Comment.joins("INNER JOIN vote_comments ON vote_comments.comment_id = comments.id").group!("vote_comments.user_id").having!("vote_comments.user_id=?",id)
     else
       @comments = Comment.all
     end
@@ -19,14 +20,23 @@ class CommentsController < ApplicationController
   end
   
   def reply_comment
-    if !current_user.nil?
-      @user = current_user
-      @comment = Comment.find(params[:id])
-      @reply = @comment.replies.create(content: params[:content], user_id: @user.id, parent_id: @comment.id)
-      flash[:notice] = "Added your reply"
-      redirect_to :action => "show", :id => params[:id]
-    else
-      redirect_to '/login'
+    respond_to do |format| 
+      if request.headers['X-API-KEY'].present?
+        @user = User.where(id: request.headers['X-API-KEY'])
+        id = request.headers['X-API-KEY']
+      elsif !current_user.blank?
+        @user = current_user
+        id = current_user.id
+      end
+      if !@user.nil?
+        @comment = Comment.find(params[:id])
+        @reply = @comment.replies.create(content: params[:content], user_id: id, parent_id: @comment.id)
+        flash[:notice] = "Added your reply"
+        redirect_to :action => "show", :id => params[:id]
+      else
+        format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
+        redirect_to '/login'
+      end
     end
   end
 
@@ -43,7 +53,6 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = Comment.new(comment_params)
-
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
