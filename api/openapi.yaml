@@ -5,7 +5,10 @@ info:
   description: "Projecte de l'assignatura d'ASW. <br> Membres:<li>Pau Redon Milian <br> <li> Jaume Armengol Tapiolas <br> <li> Antonio Barrantes Montilla <br> <li> Alejandro Santandreu Rodriguez <br> <li> Joel Crespo Tugores"
 servers:
   - url: 'https://hacker-news-g14a.herokuapp.com/'
-  - url: 'http://54.234.4.9:8080'
+  - url: 'http://54.221.24.116:8080'
+
+security:
+  - ApiKeyAuth: []
 
 paths:
   /contribucios:
@@ -38,6 +41,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Contribucio'
+      
     post:
       tags:
       - Contribucios
@@ -81,8 +85,6 @@ paths:
               examples:
                 errorExample:
                   $ref: '#/components/examples/error400'
-      security:
-        - ApiKeyAuth: [] 
   
   /contribucios/news:
     get:
@@ -187,8 +189,6 @@ paths:
               examples:
                 errorExample:
                   $ref: '#/components/examples/error403'
-      security:
-        - ApiKeyAuth: [] 
    
   /contribucios/{contribucioId}/comentar:
     post:
@@ -234,8 +234,6 @@ paths:
               examples:
                 errorExample:
                   $ref: '#/components/examples/error400'
-      security:
-        - ApiKeyAuth: []
         
   /contribucios/{contribucioId}/like:
     put:
@@ -258,8 +256,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Contribucio'
-      security:
-        - ApiKeyAuth: []
         
   /contribucios/{contribucioId}/dislike:
     put:
@@ -282,9 +278,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Contribucio'
-      security:
-        - ApiKeyAuth: []
-     
+    
   /users/{userId}:
     get:
       tags:
@@ -340,8 +334,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Contribucio'
-      security:
-        - ApiKeyAuth: []
+
   /comments:
     get:
       tags:
@@ -436,7 +429,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Contribucio'
+                $ref: '#/components/schemas/Comment'
         400:
           description: 'Error: Bad Request'
           content:
@@ -446,8 +439,51 @@ paths:
               examples:
                 errorExample:
                   $ref: '#/components/examples/error400'
-      security:
-        - ApiKeyAuth: [] 
+        
+  /comments/{commentId}/like:
+    put:
+      tags:
+      - Comments
+      summary: Upvotes a comments
+      operationId: upvoteConmment
+      parameters:
+      - name: commentId
+        in: path
+        description: Id of the comment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Comment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        
+  /comments/{commentId}/dislike:
+    put:
+      tags:
+      - Comments
+      summary: Downvotes a comments
+      operationId: downvoteConmment
+      parameters:
+      - name: commentId
+        in: path
+        description: Id of the comment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Comment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+
 components:
   schemas:
     Contribucio:
