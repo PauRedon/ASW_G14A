@@ -1,5 +1,6 @@
 class ContribuciosController < ApplicationController
   before_action :set_contribucio, only: [:show, :edit, :update, :destroy, :like, :news]
+  skip_before_action :verify_authenticity_token
 
   # GET /contribucios or /contribucios.json
   def index
@@ -57,14 +58,13 @@ class ContribuciosController < ApplicationController
   def create
     respond_to do |format|
       if request.headers['X-API-KEY'].present?
-        @user = User.where(id: request.headers['X-API-KEY'].to_s)
-        print("---------------------------------------------------USER AMB APIKEY")
+        @user = User.where(id: request.headers['X-API-KEY'])
+        id = request.headers['X-API-KEY']
       elsif !current_user.blank?
         @user = current_user
-        print("---------------------------------------------------USER SENSE APIKEY")
+        id = current_user.id
       end  
       if !@user.nil?
-        print("---------------------------------------------------USER NO NULL")
         @contribucio = Contribucio.new(contribucio_params)
         texto = false
         if url_valid?(@contribucio.url) || !@contribucio.texto.blank?
@@ -74,7 +74,7 @@ class ContribuciosController < ApplicationController
           else 
             @contribucio.tipus = 'ask'
           end
-          @contribucio.user = @user
+          @contribucio.user_id = id
           if @contribucio.save
             if texto
               @comment = @contribucio.comments.create(content: @contribucio.texto, user_id: @user.id)
