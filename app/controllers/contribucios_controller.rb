@@ -4,7 +4,7 @@ class ContribuciosController < ApplicationController
   # GET /contribucios or /contribucios.json
   def index
     if !params[:userid].blank?
-      @contribucios = Contribucio.where(user_id: params[:userid]).order(like: :desc) 
+      @contribucios = Contribucio.where(user_id: params[:userid]).order(like: :desc)
     elsif !params[:likedid].blank?
       @contribucios = Contribucio.joins("INNER JOIN votes ON votes.contribucio_id = contribucios.id").group!("votes.user_id").having!("votes.user_id=?",current_user.id)
     else 
@@ -16,6 +16,9 @@ class ContribuciosController < ApplicationController
   #GET /news or /news.json
   def news
     @contribucios = Contribucio.all.order(created_at: :desc)
+    respond_to do |format|
+        format.json {render json: @contribucios}
+      end
   end
 
   # GET /contribucios/1 or /contribucios/1.json
@@ -24,6 +27,9 @@ class ContribuciosController < ApplicationController
 
   def asks
     @contribucios = Contribucio.where(tipus: 'ask').order(like: :desc)
+    respond_to do |format|
+        format.json {render json: @contribucios}
+      end
   end
 
   # GET /contribucios/new
@@ -49,23 +55,26 @@ class ContribuciosController < ApplicationController
 
   # POST /contribucios or /contribucios.json
   def create
-    if request.headers['X-API-KEY'].present?
-      @user = User.find(request.headers['X-API-KEY'].to_s)
-    elsif !current_user.blank?
-      @user = current_user
-    end  
-    if !@user.nil?
-      @contribucio = Contribucio.new(contribucio_params)
-      texto = false
-      if url_valid?(@contribucio.url) || !@contribucio.texto.blank?
-        if (url_valid?(@contribucio.url))
-          @contribucio.tipus = 'url'
-          texto = !@contribucio.texto.blank?
-        else 
-          @contribucio.tipus = 'ask'
-        end
-        @contribucio.user = @user
-        respond_to do |format|
+    respond_to do |format|
+      if request.headers['X-API-KEY'].present?
+        @user = User.where(id: request.headers['X-API-KEY'].to_s)
+        print("---------------------------------------------------USER AMB APIKEY")
+      elsif !current_user.blank?
+        @user = current_user
+        print("---------------------------------------------------USER SENSE APIKEY")
+      end  
+      if !@user.nil?
+        print("---------------------------------------------------USER NO NULL")
+        @contribucio = Contribucio.new(contribucio_params)
+        texto = false
+        if url_valid?(@contribucio.url) || !@contribucio.texto.blank?
+          if (url_valid?(@contribucio.url))
+            @contribucio.tipus = 'url'
+            texto = !@contribucio.texto.blank?
+          else 
+            @contribucio.tipus = 'ask'
+          end
+          @contribucio.user = @user
           if @contribucio.save
             if texto
               @comment = @contribucio.comments.create(content: @contribucio.texto, user_id: @user.id)
@@ -76,51 +85,40 @@ class ContribuciosController < ApplicationController
             format.html { render :new, status: :unprocessable_entity }
             format.json { render json: @contribucio.errors, status: :unprocessable_entity }
           end
+        else
+          format.json { render json: {status:"error", code:400, message: "URL not valid"}, status: :bad_request }
+          flash[:notice] = "URL IS NOT VALID"
+          redirect_to :action => "index"
         end
       else
-        flash[:notice] = "URL IS NOT VALID"
+        format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
+        flash[:notice] = "USER NOT VALID"
         redirect_to :action => "index"
       end
-    else 
-      flash[:notice] = "USER NOT LOGGED"
-      redirect_to :action => "index"
     end
   end
   
-  #def users
-  #  id = params[:id]
-  #  user = User.find(id)
-  #  @contribucios = user.contribucios
-  #end
-  
-  #def liked
-  #  id = params[:id]
-  #  @votes = Vote.where(user_id: id)
-  #  @contribucios = Contribucio.all
-  #end
-  
-
   # PATCH/PUT /contribucios/1 or /contribucios/1.json
-  #def update
-  #  respond_to do |format|
-  #    if @contribucio.update(contribucio_params)
-  #      format.html { redirect_to @contribucio, notice: "Contribucio was successfully updated." }
-  #      format.json { render :show, status: :ok, location: @contribucio }
-  #    else
-  #      format.html { render :edit, status: :unprocessable_entity }
-  #      format.json { render json: @contribucio.errors, status: :unprocessable_entity }
-  #    end
-  #  end
-  #end
+  def update
+    respond_to do |format|
+      if @contribucio.update(contribucio_params)
+        format.html { redirect_to @contribucio, notice: "Contribucio was successfully updated." }
+        format.json { render :show, status: :ok, location: @contribucio }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @contribucio.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /contribucios/1 or /contribucios/1.json
-  #def destroy
-  #  @contribucio.destroy
-  #  respond_to do |format|
-  #    format.html { redirect_to contribucios_url, notice: "Contribucio was successfully destroyed." }
-  #    format.json { head :no_content }
-  #  end
-  #end
+  def destroy
+    @contribucio.destroy
+    respond_to do |format|
+      format.html { redirect_to contribucios_url, notice: "Contribucio was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
   
   def like
     if !current_user.nil?
