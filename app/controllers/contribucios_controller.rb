@@ -28,9 +28,9 @@ class ContribuciosController < ApplicationController
 
   def asks
     @contribucios = Contribucio.where(tipus: 'ask').order(like: :desc)
-    respond_to do |format|
-      format.json {render json: @contribucios}
-    end
+    #respond_to do |format|
+     # format.json {render json: @contribucios}
+    #end
   end
 
   # GET /contribucios/new
