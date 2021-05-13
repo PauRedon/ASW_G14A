@@ -14,7 +14,7 @@ class ContribuciosController < ApplicationController
         @user = current_user
         id = current_user.id
       end
-      @contribucios = Contribucio.joins("INNER JOIN votes ON votes.contribucio_id = contribucios.id").group!("votes.user_id").having!("votes.user_id=?",id)
+      @contribucios = Contribucio.joins("INNER JOIN votes ON votes.contribucio_id = contribucios.id").group!("contribucios.id, votes.user_id").having!("votes.user_id=?",id)
     else 
       @contribucios = Contribucio.where(tipus: 'url').order(like: :desc)
     end

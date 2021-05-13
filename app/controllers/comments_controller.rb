@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
         @user = current_user
         id = current_user.id
       end
-      @comments = Comment.joins("INNER JOIN vote_comments ON vote_comments.comment_id = comments.id").group!("vote_comments.user_id").having!("vote_comments.user_id=?",id)
+      @comments = Comment.joins("INNER JOIN vote_comments ON vote_comments.comment_id = comments.id").group!("comments.id, vote_comments.user_id").having!("vote_comments.user_id=?",id)
     elsif !params[:userid].blank?
       if request.headers['X-API-KEY'].present?
         @user = User.where(id: request.headers['X-API-KEY'])
