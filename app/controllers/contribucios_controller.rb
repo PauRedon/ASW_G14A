@@ -49,7 +49,12 @@ class ContribuciosController < ApplicationController
 
   # POST /contribucios or /contribucios.json
   def create
-    if User.where(user_id: request.headers[:apiKey]) || !current_user.blank?
+    if request.headers['X-API-KEY'].present?
+      @user = User.find(request.headers['X-API-KEY'].to_s)
+    elsif !current_user.blank?
+      @user = current_user
+    end  
+    if !@user.nil?
       @contribucio = Contribucio.new(contribucio_params)
       texto = false
       if url_valid?(@contribucio.url) || !@contribucio.texto.blank?
@@ -59,7 +64,6 @@ class ContribuciosController < ApplicationController
         else 
           @contribucio.tipus = 'ask'
         end
-        @user = current_user
         @contribucio.user = @user
         respond_to do |format|
           if @contribucio.save
