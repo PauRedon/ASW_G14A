@@ -34,7 +34,6 @@ class CommentsController < ApplicationController
   end
   
   def reply_comment
-    #respond_to do |format| 
     if request.headers['X-API-KEY'].present?
       @user = User.where(id: request.headers['X-API-KEY'])
       id = request.headers['X-API-KEY']
@@ -51,7 +50,6 @@ class CommentsController < ApplicationController
       format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
       redirect_to '/login'
     end
-    #end
   end
 
   # GET /comments/new

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy login ]
+  skip_before_action :verify_authenticity_token
 
   # GET /users or /users.json
   def index
@@ -8,10 +9,13 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    
   end
   
   def update_username
-    @user.update(params[:username])
+    if request.headers['X-API-KEY'].present? || !current_user.blank?
+      @user.update(params[:username])
+    end
   end
 
   # GET /users/new
@@ -56,14 +60,20 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    respond_to do |format|
+    if request.headers['X-API-KEY'].present?
+      @user = User.where(id: request.headers['X-API-KEY'])
+    elsif !current_user.blank?
+      @user = current_user
+    end
+    if !@user.nil?
       if @user.update(user_params_edit)
-        format.html { redirect_to @user, notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
+        render json: @user.to_json
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :show, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
+    else
+      format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
     end
   end
 
