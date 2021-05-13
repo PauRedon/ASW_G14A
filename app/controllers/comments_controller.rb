@@ -20,24 +20,24 @@ class CommentsController < ApplicationController
   end
   
   def reply_comment
-    respond_to do |format| 
-      if request.headers['X-API-KEY'].present?
-        @user = User.where(id: request.headers['X-API-KEY'])
-        id = request.headers['X-API-KEY']
-      elsif !current_user.blank?
-        @user = current_user
-        id = current_user.id
-      end
-      if !@user.nil?
-        @comment = Comment.find(params[:id])
-        @reply = @comment.replies.create(content: params[:content], user_id: id, parent_id: @comment.id)
-        flash[:notice] = "Added your reply"
-        redirect_to :action => "show", :id => params[:id]
-      else
-        format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
-        redirect_to '/login'
-      end
+    #respond_to do |format| 
+    if request.headers['X-API-KEY'].present?
+      @user = User.where(id: request.headers['X-API-KEY'])
+      id = request.headers['X-API-KEY']
+    elsif !current_user.blank?
+      @user = current_user
+      id = current_user.id
     end
+    if !@user.nil?
+      @comment = Comment.find(params[:id])
+      @reply = @comment.replies.create(content: params[:content], user_id: id, parent_id: @comment.id)
+      flash[:notice] = "Added your reply"
+      redirect_to :action => "show", :id => params[:id]
+    else
+      format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
+      redirect_to '/login'
+    end
+    #end
   end
 
   # GET /comments/new
@@ -101,18 +101,43 @@ class CommentsController < ApplicationController
   end
   
   def like
-    if !current_user.nil?
-      @comment = Comment.find(params[:id]) 
-      VoteComment.create(user_id: current_user.id, comment_id: params[:id])
-      #format.html { redirect_back(fallback_location: users_comments_url) }
+    respond_to do |format|
+      if request.headers['X-API-KEY'].present?
+        @user = User.where(id: request.headers['X-API-KEY'])
+        id = request.headers['X-API-KEY']
+      elsif !current_user.blank?
+        @user = current_user
+        id = current_user.id
+      end
+      if !@user.nil?
+        @comment = Comment.find(params[:id]) 
+        VoteComment.create(user_id: id, comment_id: params[:id])
+        format.html { redirect_to contribucios_url, notice: "Comment was successfully upvoted." }
+        format.json { head :no_content }
+      else 
+        format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
+      end
     end
   end
   
   def unlike
-    if !current_user.nil?
-      @comment = Comment.find(params[:id]) 
-      @vote = VoteComment.where(user_id: current_user.id, comment_id: params[:id])
-      @comment.vote_comments.destroy(@vote)
+    respond_to do |format|
+      if request.headers['X-API-KEY'].present?
+        @user = User.where(id: request.headers['X-API-KEY'])
+        id = request.headers['X-API-KEY']
+      elsif !current_user.blank?
+        @user = current_user
+        id = current_user.id
+      end
+      if !@user.nil?
+        @comment = Comment.find(params[:id]) 
+        @vote = VoteComment.where(user_id: id, comment_id: params[:id])
+        @comment.vote_comments.destroy(@vote)
+        format.html { redirect_to contribucios_url, notice: "Comment was successfully downvoted." }
+        format.json { head :no_content }
+      else 
+        format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
+      end
       #format.html { redirect_back(fallback_location: users_comments_url) }
     end
   end
