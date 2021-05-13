@@ -6,9 +6,23 @@ class CommentsController < ApplicationController
   # GET /comments.json
   def index
     if !params[:commentedid].blank?
-      @comments = Comment.joins(:vote_comments)
+      if request.headers['X-API-KEY'].present?
+        @user = User.where(id: request.headers['X-API-KEY'])
+        id = request.headers['X-API-KEY']
+      elsif !current_user.blank?
+        @user = current_user
+        id = current_user.id
+      end
+      @comments = Comment.joins("INNER JOIN vote_comments ON vote_comments.comment_id = comments.id").group!("vote_comments.user_id").having!("vote_comments.user_id=?",id)
     elsif !params[:userid].blank?
-       @comments = Comment.joins("INNER JOIN vote_comments ON vote_comments.comment_id = comments.id").group!("vote_comments.user_id").having!("vote_comments.user_id=?",id)
+      if request.headers['X-API-KEY'].present?
+        @user = User.where(id: request.headers['X-API-KEY'])
+        id = request.headers['X-API-KEY']
+      elsif !current_user.blank?
+        @user = current_user
+        id = current_user.id
+      end
+      @comments = Comment.where(user_id: id)
     else
       @comments = Comment.all
     end
