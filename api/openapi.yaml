@@ -5,7 +5,7 @@ info:
   description: "Projecte de l'assignatura d'ASW. <br> Membres:<li>Pau Redon Milian <br> <li> Jaume Armengol Tapiolas <br> <li> Antonio Barrantes Montilla <br> <li> Alejandro Santandreu Rodriguez <br> <li> Joel Crespo Tugores"
 servers:
   - url: 'https://hacker-news-g14a.herokuapp.com/'
-  - url: 'http://34.227.24.211:8080'
+  - url: 'http://54.167.84.230:8080'
 
 paths:
   /contribucios:
@@ -141,6 +141,54 @@ paths:
               examples:
                 errorExample:
                   $ref: '#/components/examples/error404'
+    delete:
+      tags:
+      - Contribucios
+      summary: Deletes a Contribution
+      operationId: deleteContribucio
+      parameters:
+      - name: contribucioId
+        in: path
+        description: Contribucio id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        204:
+          description: Contribucio deleted
+          content:
+            application/json: {}
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+        401:
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+        403:
+          description: 'Error: Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+      security:
+        - ApiKeyAuth: [] 
+   
   /contribucios/{contribucioId}/comentar:
     post:
       tags:
@@ -164,7 +212,7 @@ paths:
               - content
               type: object
               properties:
-                tittle:
+                content:
                   type: string
                   minLength: 4
                   example: 'Comment'
@@ -185,6 +233,57 @@ paths:
               examples:
                 errorExample:
                   $ref: '#/components/examples/error400'
+      security:
+        - ApiKeyAuth: []
+        
+  /contribucios/{contribucioId}/like:
+    put:
+      tags:
+      - Contribucios
+      summary: Upvotes a contribution
+      operationId: upvoteContribution
+      parameters:
+      - name: contribucioId
+        in: path
+        description: Id of the contribution
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Contribucio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contribucio'
+      security:
+        - ApiKeyAuth: []
+        
+  /contribucios/{contribucioId}/dislike:
+    put:
+      tags:
+      - Contribucios
+      summary: Downvotes a contribution
+      operationId: downvoteContribution
+      parameters:
+      - name: contribucioId
+        in: path
+        description: Id of the contribution
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Contribucio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contribucio'
+      security:
+        - ApiKeyAuth: []
+     
   /users/{userId}:
     get:
       tags:
@@ -206,6 +305,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+    patch:
+      tags:
+      - Users
+      summary: Updates a user
+      operationId: updateUser
+      parameters:
+      - name: userId
+        in: path
+        description: Id of the user
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Provide the new username for the user.
+        content:
+          application/json:
+            schema:
+              required:
+              - username
+              type: object
+              properties:
+                username:
+                  type: string
+                  minLength: 4
+                  example: 'Comment'
+        required: true
+      responses:
+        200:
+          description: Contribucio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contribucio'
+      security:
+        - ApiKeyAuth: []
   /comments:
     get:
       tags:
@@ -280,6 +415,20 @@ paths:
         schema:
           type: integer
           format: int64
+      requestBody:
+        description: Provide the content of the new Comment. URL must be valid. User must provide either URL or content. Providing both will make content be a Comment or text plain.
+        content:
+          application/json:
+            schema:
+              required:
+              - content
+              type: object
+              properties:
+                content:
+                  type: string
+                  minLength: 4
+                  example: 'Comment'
+        required: true
       responses:
         201:
           description: Reply created
@@ -296,6 +445,8 @@ paths:
               examples:
                 errorExample:
                   $ref: '#/components/examples/error400'
+      security:
+        - ApiKeyAuth: [] 
 components:
   schemas:
     Contribucio:
@@ -468,3 +619,8 @@ components:
       type: apiKey
       name: X-API-KEY #Custom headers in rails apps must have the X- prefix
       in: header
+      
+      
+      
+      
+      
