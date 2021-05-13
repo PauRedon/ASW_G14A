@@ -43,13 +43,20 @@ class ContribuciosController < ApplicationController
   end
   
   def comentar
-    if !current_user.nil?
-      @user_id = current_user.id
+    if request.headers['X-API-KEY'].present?
+      @user = User.where(id: request.headers['X-API-KEY'])
+      id = request.headers['X-API-KEY']
+    elsif !current_user.blank?
+      @user = current_user
+      id = current_user.id
+    end
+    if !@user.nil?
       @contribucio = Contribucio.find(params[:id])
-      @comment = @contribucio.comments.create(content: params[:content], user_id: @user_id, contribucio_id: @contribucio.id)
+      @comment = @contribucio.comments.create(content: params[:content], user_id: id, contribucio_id: @contribucio.id)
       flash[:notice] = "Added your comment"
       redirect_to :action => "show", :id => params[:id]
     else
+      format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
       redirect_to '/login'
     end
   end
@@ -113,32 +120,65 @@ class ContribuciosController < ApplicationController
 
   # DELETE /contribucios/1 or /contribucios/1.json
   def destroy
-    @contribucio.destroy
     respond_to do |format|
-      format.html { redirect_to contribucios_url, notice: "Contribucio was successfully destroyed." }
-      format.json { head :no_content }
+      if request.headers['X-API-KEY'].present?
+        @user = User.where(id: request.headers['X-API-KEY'])
+      elsif !current_user.blank?
+        @user = current_user
+      end  
+      if !@user.nil?
+        @contribucio.destroy
+        format.html { redirect_to contribucios_url, notice: "Contribucio was successfully destroyed." }
+        format.json { head :no_content }
+      else
+        format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
+      end
     end
   end
   
   def like
-    if !current_user.nil?
-      @contribucio = Contribucio.find(params[:id]) 
-      Vote.create(user_id: current_user.id, contribucio_id: params[:id])
-      @contribucio.like += 1
-      @contribucio.save
-      #format.html { redirect_back(fallback_location: users_comments_url) }
+    respond_to do |format|
+      if request.headers['X-API-KEY'].present?
+        @user = User.where(id: request.headers['X-API-KEY'])
+        id = request.headers['X-API-KEY']
+      elsif !current_user.blank?
+        @user = current_user
+        id = current_user.id
+      end
+      if !@user.nil?
+        @contribucio = Contribucio.find(params[:id]) 
+        Vote.create(user_id: id, contribucio_id: params[:id])
+        @contribucio.like += 1
+        @contribucio.save
+        format.html { redirect_to contribucios_url, notice: "Contribucio was successfully upvoted." }
+        format.json { head :no_content }
+      else 
+        format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
+      end
     end
   end
   
   def unlike
-    if !current_user.nil?
-      @contribucio = Contribucio.find(params[:id]) 
-      @vote = Vote.where(user_id: current_user.id, contribucio_id: params[:id])
-      @contribucio.like = @contribucio.like - 1
-      @contribucio.save
-      @contribucio.votes.destroy(@vote)
-      Vote.where(user_id: current_user.id, contribucio_id: params[:id]).destroy_all
-      #format.html { redirect_to request.referer }
+    respond_to do |format|
+      if request.headers['X-API-KEY'].present?
+        @user = User.where(id: request.headers['X-API-KEY'])
+        id = request.headers['X-API-KEY']
+      elsif !current_user.blank?
+        @user = current_user
+        id = current_user.id
+      end
+      if !@user.nil?
+        @contribucio = Contribucio.find(params[:id]) 
+        @vote = Vote.where(user_id: id, contribucio_id: params[:id])
+        @contribucio.like = @contribucio.like - 1
+        @contribucio.save
+        @contribucio.votes.destroy(@vote)
+        Vote.where(user_id: id, contribucio_id: params[:id]).destroy_all
+        format.html { redirect_to contribucios_url, notice: "Contribucio was successfully downvoted." }
+        format.json { head :no_content }
+      else
+        format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
+      end
     end
   end
 
