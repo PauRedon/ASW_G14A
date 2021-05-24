@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
         @user = current_user
         id = current_user.id
       end
-      @comments = Comment.joins("INNER JOIN vote_comments ON vote_comments.comment_id = comments.id").group!("vote_comments.user_id").having!("vote_comments.user_id=?",id)
+      @comments = Comment.joins("INNER JOIN vote_comments ON vote_comments.comment_id = comments.id").group!("comments.id, vote_comments.user_id").having!("vote_comments.user_id=?",id)
     elsif !params[:userid].blank?
       if request.headers['X-API-KEY'].present?
         @user = User.where(id: request.headers['X-API-KEY'])
@@ -34,7 +34,6 @@ class CommentsController < ApplicationController
   end
   
   def reply_comment
-    #respond_to do |format| 
     if request.headers['X-API-KEY'].present?
       @user = User.where(id: request.headers['X-API-KEY'])
       id = request.headers['X-API-KEY']
@@ -51,7 +50,6 @@ class CommentsController < ApplicationController
       format.json { render json:{status:"error", code:403, message: "Your api key " + request.headers['X-API-KEY'].to_s + " is not valid"}, status: :forbidden}
       redirect_to '/login'
     end
-    #end
   end
 
   # GET /comments/new
